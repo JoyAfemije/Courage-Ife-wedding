@@ -1,0 +1,125 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Great+Vibes&display=swap');
+
+:root {
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-script: "Great Vibes", cursive;
+}
+
+@theme {
+  --font-heading: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-script: "Great Vibes", cursive;
+
+  --color-wine: #14532d;
+  /* emerald — buttons, headings, accents */
+  --color-wine-deep: #0b2b20;
+  /* deep emerald — hero overlay, dark sections */
+  --color-wine-light: #1f6b47;
+  /* lighter emerald — hover states */
+  --color-cream: #faf7ee;
+  /* warm ivory background */
+  --color-cream-deep: #f1ead6;
+  --color-ivory: #fffdf8;
+  --color-gold: #c9a227;
+  /* richer gold to match the invite */
+  --color-gold-soft: #e3cd86;
+  --color-ink: #16281f;
+  /* near-black, green-tinted text */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: var(--color-wine);
+  color: var(--color-cream);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-wine);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.font-script {
+  font-family: var(--font-script);
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.divider-ornament {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.divider-ornament::before,
+.divider-ornament::after {
+  content: "";
+  height: 1px;
+  width: 2.5rem;
+  background: var(--color-gold);
+  opacity: 0.6;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold-soft);
+  border-radius: 999px;
+}
