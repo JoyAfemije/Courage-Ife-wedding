@@ -1,27 +1,35 @@
-import { Heart } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import weddingData from "../data/weddingData.js";
+import Reveal from "./Reveal.jsx";
 
 export default function GuestWishes() {
   const { guestWishes } = weddingData;
 
   return (
-    <section className="bg-cream-deep/60 py-20 sm:py-28">
-      <div className="max-w-2xl mx-auto px-6 text-center">
-        <Heart size={28} className="text-gold mx-auto mb-5" fill="currentColor" />
-        <h2 className="font-script text-4xl sm:text-5xl text-wine-deep mb-5">
-          {guestWishes.heading}
-        </h2>
-        <p className="font-body text-ink/75 leading-relaxed max-w-md mx-auto mb-9">
-          {guestWishes.body}
-        </p>
-        <a
-          href={guestWishes.googleFormUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center justify-center rounded-full bg-wine text-cream font-heading text-sm sm:text-base px-8 py-3.5 hover:bg-wine-deep transition-colors duration-200"
-        >
-          {guestWishes.ctaLabel}
-        </a>
+    <section className="relative bg-night section border-y border-graphite">
+      <div className="wrap max-w-2xl text-center">
+        <Reveal>
+          <span
+            className="font-display text-7xl leading-none text-champagne/60 block mb-4"
+            aria-hidden="true"
+          >
+            &ldquo;
+          </span>
+          <p className="eyebrow mb-6">With Love</p>
+          <h2 className="display-md text-ivory mb-6">{guestWishes.heading}</h2>
+          <p className="font-body text-silver leading-relaxed max-w-md mx-auto mb-10">
+            {guestWishes.body}
+          </p>
+          <a
+            href={guestWishes.googleFormUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-outline text-ivory"
+          >
+            {guestWishes.ctaLabel}
+            <ArrowUpRight size={15} />
+          </a>
+        </Reveal>
       </div>
     </section>
   );

@@ -1,63 +1,66 @@
-import { Calendar, Clock, MapPin } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import weddingData from "../data/weddingData.js";
+import SectionHeading from "./SectionHeading.jsx";
+import Reveal from "./Reveal.jsx";
 
 export default function Events() {
   const { events } = weddingData;
 
   return (
-    <section id="events" className="bg-cream-deep/60 py-20 sm:py-28">
-      <div className="max-w-5xl mx-auto px-6">
-        <div className="text-center max-w-xl mx-auto mb-14">
-          <div className="divider-ornament justify-center mb-4">
-            <span className="font-heading tracking-[0.2em] text-xs text-wine/70">
-              SAVE THE DATE
-            </span>
-          </div>
-          <h2 className="font-script text-4xl sm:text-5xl text-wine-deep">
-            Event Details
-          </h2>
-        </div>
+    <section id="events" className="relative bg-night section border-t border-graphite">
+      <div className="wrap">
+        <SectionHeading
+          eyebrow="Save the Date"
+          title="The Celebration"
+          intro="Three moments, one unforgettable day. We would be honoured to have you with us for each of them."
+        />
 
-        <div className="grid sm:grid-cols-3 gap-6">
-          {events.map((event) => (
-            <div
+        <div className="mt-16 sm:mt-20 grid md:grid-cols-3 md:divide-x divide-graphite border-t border-graphite md:border-t-0">
+          {events.map((event, index) => (
+            <Reveal
               key={event.id}
-              className="bg-ivory rounded-2xl border border-gold-soft/40 p-7 flex flex-col shadow-sm"
+              delay={index * 100}
+              className="flex flex-col px-0 md:px-10 py-12 md:py-4 first:md:pl-0 last:md:pr-0"
             >
-              <h3 className="font-heading text-lg text-wine-deep mb-5">
+              <span className="font-display text-champagne text-lg mb-6">
+                0{index + 1}
+              </span>
+              <h3 className="display-md text-ivory mb-8 leading-tight">
                 {event.name}
               </h3>
 
-              <div className="flex items-start gap-3 mb-3">
-                <Calendar size={18} className="text-gold mt-0.5 shrink-0" />
-                <span className="font-body text-sm text-ink/80">
-                  {event.date}
-                </span>
-              </div>
-              <div className="flex items-start gap-3 mb-3">
-                <Clock size={18} className="text-gold mt-0.5 shrink-0" />
-                <span className="font-body text-sm text-ink/80">
-                  {event.time}
-                </span>
-              </div>
-              <div className="flex items-start gap-3 mb-6">
-                <MapPin size={18} className="text-gold mt-0.5 shrink-0" />
-                <span className="font-body text-sm text-ink/80">
-                  {event.venue}
-                  <br />
-                  <span className="text-ink/60">{event.address}</span>
-                </span>
-              </div>
+              <dl className="space-y-5 font-body text-sm">
+                <div>
+                  <dt className="text-[0.65rem] uppercase tracking-[0.28em] text-silver/70 mb-1.5">
+                    Date
+                  </dt>
+                  <dd className="text-silver">{event.date}</dd>
+                </div>
+                <div>
+                  <dt className="text-[0.65rem] uppercase tracking-[0.28em] text-silver/70 mb-1.5">
+                    Time
+                  </dt>
+                  <dd className="text-silver">{event.time}</dd>
+                </div>
+                <div>
+                  <dt className="text-[0.65rem] uppercase tracking-[0.28em] text-silver/70 mb-1.5">
+                    Venue
+                  </dt>
+                  <dd className="text-ivory">{event.venue}</dd>
+                  <dd className="text-silver mt-1">{event.address}</dd>
+                </div>
+              </dl>
 
               <a
                 href={event.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-auto inline-flex items-center justify-center rounded-full border border-wine text-wine font-heading text-sm px-5 py-2.5 hover:bg-wine hover:text-cream transition-colors duration-200"
+                className="link-underline mt-9 inline-flex items-center gap-1.5 text-[0.7rem] uppercase tracking-[0.24em] text-champagne"
               >
                 View Location
+                <ArrowUpRight size={14} />
               </a>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

@@ -14,10 +14,17 @@ const weddingData = {
 
 hashtag: "#MEETTHEAFEMIJES",
 
+// Full-screen pre-intro shown before the invitation itself.
+splash: {
+  title: "Meet The Afemijes",
+  subtitle: "Courage & Ife · 29 Dec 2026",
+},
+
   weddingDate: "2026-12-29T09:00:00", 
 
   hero: {
   heading: "Ifeoluwa & Courage",
+  eyebrow: "Meet The Afemijes",
   subheading: "Two hearts, one beautiful journey.",
   dateDisplay: "Tuesday, 29th December 2026",
   location: "Ibadan, Nigeria",
@@ -110,14 +117,13 @@ events: [
     heading: "Wedding Material",
     body:
       "To help us create a beautiful and coordinated celebration, guests who would like to participate can get the official wedding material from our designated contact.",
-    materialType: "Premium Wine Damask (George)",
-    colour: "Wine & Gold",
-    pickupLocation: "Balogun Market, Complex B, Shop 24, Lagos Island",
-    contactPerson: "Aunty Bisi",
-    phoneNumber: "+2348012345678",
+    materialType: "Premium Damask (George)",
+    colour: "Emerald & Gold",
+    contactPerson: "Courage",
+    phoneNumber: "+2348187894148",
     whatsappNumber: "2348187894148",
     whatsappMessage:
-      "Hello Aunty Bisi, I'd like to get the wedding material for Courage & Ife's wedding.",
+      "Hello Courage, I'd like to get the wedding material for Courage & Ife's wedding.",
     ctaLabel: "Get Material",
   },
 
@@ -158,6 +164,15 @@ events: [
     ],
   },
 
+  // Background soundtrack — a single, discreet, visitor-controlled toggle.
+  // The URL is a direct, browser-accessible MP3 (HTTP 200, accepts byte ranges).
+  music: {
+    src: "https://store.cvaultx.com/uploads/music/2026/05/Dwin-feat-The-Stoic-Again-(CeeNaija.com).mp3",
+    label: "Play wedding soundtrack",
+    pauseLabel: "Pause wedding soundtrack",
+    defaultVolume: 0.25,
+  },
+
   rsvp: {
   heading: "We'd Love to Celebrate With You",
   body:
@@ -183,9 +198,9 @@ events: [
     body:
       "Your presence is the greatest gift. However, if you would like to bless us further, we've made it easy for you to do so.",
     bankName: "GTBank",
-    accountName: "Courage & Ife Wedding",
-    accountNumber: "0123456789",
-    paymentLink: "https://paystack.com/pay/replace-with-courage-and-ife-gift",
+    accountName: "Courage Udulishe Afemije",
+    accountNumber: "8139981589",
+    paymentLink: "https://www.shein.com",
     copyLabel: "Copy Account Number",
     copiedLabel: "Account number copied!",
     onlineLabel: "Send a Gift Online",
@@ -196,7 +211,6 @@ events: [
   contactPerson: "The Afemije Family",
   phoneNumber: "+2348187894148",
   whatsappNumber: "2348187894148",
-  email: "hello@ifeoluwaandcourage.com",
 },
 
   faq: {
@@ -205,7 +219,7 @@ events: [
       {
         question: "What should I wear?",
         answer:
-          "We'd love to see you in our wedding colours — wine, cream, and champagne gold. Comfortable, elegant attire is encouraged for both ceremonies.",
+          "We'd love to see you in our wedding colours — emerald, ivory, and champagne gold. Comfortable, elegant attire is encouraged for both ceremonies.",
       },
       {
         question: "What are the wedding colours?",

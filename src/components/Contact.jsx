@@ -1,47 +1,53 @@
-import { Phone, MessageCircle, Mail } from "lucide-react";
+import { Phone, MessageCircle, ArrowUpRight } from "lucide-react";
 import weddingData from "../data/weddingData.js";
+import SectionHeading from "./SectionHeading.jsx";
+import Reveal from "./Reveal.jsx";
 
 export default function Contact() {
   const { contact } = weddingData;
   const whatsappUrl = `https://wa.me/${contact.whatsappNumber}`;
 
-  return (
-    <section className="bg-cream-deep/60 py-20 sm:py-28">
-      <div className="max-w-lg mx-auto px-6 text-center">
-        <div className="divider-ornament justify-center mb-4">
-          <span className="font-heading tracking-[0.2em] text-xs text-wine/70">
-            QUESTIONS?
-          </span>
-        </div>
-        <h2 className="font-script text-4xl sm:text-5xl text-wine-deep mb-3">
-          {contact.heading}
-        </h2>
-        <p className="font-body text-ink/70 mb-9">{contact.contactPerson}</p>
+  const channels = [
+    { Icon: Phone, label: "Call", value: contact.phoneNumber, href: `tel:${contact.phoneNumber}`, external: false },
+    { Icon: MessageCircle, label: "WhatsApp", value: "Message us", href: whatsappUrl, external: true },
+  ];
 
-        <div className="grid grid-cols-3 gap-3 sm:gap-4">
-          <a
-            href={`tel:${contact.phoneNumber}`}
-            className="flex flex-col items-center gap-2 rounded-xl border border-gold-soft/40 bg-ivory py-5 hover:border-wine transition-colors duration-200"
-          >
-            <Phone size={20} className="text-wine" />
-            <span className="font-heading text-xs text-ink/75">Call</span>
-          </a>
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex flex-col items-center gap-2 rounded-xl border border-gold-soft/40 bg-ivory py-5 hover:border-wine transition-colors duration-200"
-          >
-            <MessageCircle size={20} className="text-wine" />
-            <span className="font-heading text-xs text-ink/75">WhatsApp</span>
-          </a>
-          <a
-            href={`mailto:${contact.email}`}
-            className="flex flex-col items-center gap-2 rounded-xl border border-gold-soft/40 bg-ivory py-5 hover:border-wine transition-colors duration-200"
-          >
-            <Mail size={20} className="text-wine" />
-            <span className="font-heading text-xs text-ink/75">Email</span>
-          </a>
+  return (
+    <section className="relative bg-night section border-t border-graphite">
+      <div className="wrap max-w-xl">
+        <SectionHeading
+          eyebrow="Questions?"
+          title={contact.heading}
+          intro={contact.contactPerson}
+        />
+
+        <div className="mt-14 border-t border-graphite">
+          {channels.map(({ Icon, label, value, href, external }, index) => (
+            <Reveal key={label} delay={index * 90}>
+              <a
+                href={href}
+                {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                className="group flex items-center gap-5 border-b border-graphite py-6 transition-colors duration-300 hover:bg-charcoal/40"
+              >
+                <Icon
+                  size={20}
+                  className="ml-2 shrink-0 text-champagne transition-transform duration-300 group-hover:translate-x-0.5"
+                />
+                <span className="flex-1">
+                  <span className="block font-body text-[0.65rem] uppercase tracking-[0.28em] text-silver/70">
+                    {label}
+                  </span>
+                  <span className="block font-display text-xl text-ivory mt-0.5">
+                    {value}
+                  </span>
+                </span>
+                <ArrowUpRight
+                  size={18}
+                  className="mr-2 text-ash transition-all duration-300 group-hover:text-champagne group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+              </a>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>

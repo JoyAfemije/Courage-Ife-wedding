@@ -1,4 +1,6 @@
 import Navbar from "./components/Navbar.jsx";
+import AudioToggle from "./components/AudioToggle.jsx";
+import IntroSplash from "./components/IntroSplash.jsx";
 import Hero from "./components/Hero.jsx";
 import Intro from "./components/Intro.jsx";
 import Countdown from "./components/Countdown.jsx";
@@ -11,13 +13,12 @@ import RSVP from "./components/RSVP.jsx";
 import GuestWishes from "./components/GuestWishes.jsx";
 import GiftSupport from "./components/GiftSupport.jsx";
 import Contact from "./components/Contact.jsx";
-import FAQ from "./components/FAQ.jsx";
 import FinalCTA from "./components/FinalCTA.jsx";
 import Footer from "./components/Footer.jsx";
 
 function App() {
   return (
-    <div className="font-body text-ink">
+    <div className="font-body bg-obsidian text-ivory antialiased">
       <Navbar />
       <main>
         <Hero />
@@ -32,10 +33,12 @@ function App() {
         <GuestWishes />
         <GiftSupport />
         <Contact />
-        <FAQ />
         <FinalCTA />
       </main>
       <Footer />
+      <AudioToggle />
+      {/* Rendered last so its scroll-lock applies after Navbar's mount effect. */}
+      <IntroSplash />
     </div>
   );
 }

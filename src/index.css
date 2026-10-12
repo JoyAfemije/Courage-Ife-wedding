@@ -1,125 +1,892 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Great+Vibes&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Manrope:wght@300;400;500;600;700&display=swap');
 
-:root {
-  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-script: "Great Vibes", cursive;
-}
-
+/* ============================================================
+   DESIGN TOKENS — Old Money Luxury × Dark Editorial Elegance
+   ============================================================ */
 @theme {
-  --font-heading: "Poppins", ui-sans-serif, system-ui, sans-serif;
-  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-script: "Great Vibes", cursive;
+  /* Typography */
+  --font-display: "Cormorant Garamond", ui-serif, Georgia, "Times New Roman", serif;
+  --font-body: "Manrope", ui-sans-serif, system-ui, -apple-system, sans-serif;
 
-  --color-wine: #14532d;
-  /* emerald — buttons, headings, accents */
-  --color-wine-deep: #0b2b20;
-  /* deep emerald — hero overlay, dark sections */
-  --color-wine-light: #1f6b47;
-  /* lighter emerald — hover states */
-  --color-cream: #faf7ee;
-  /* warm ivory background */
-  --color-cream-deep: #f1ead6;
-  --color-ivory: #fffdf8;
+  /* Core neutrals */
+  --color-obsidian: #0b0b0b; /* page foundation */
+  --color-night: #121212; /* soft black sections */
+  --color-charcoal: #1c1c1c; /* raised surfaces */
+  --color-graphite: #292929; /* borders, hairlines */
+  --color-ash: #777777; /* secondary text */
+  --color-silver: #b8b8b8; /* light secondary text */
+
+  /* Light + accents */
+  --color-ivory: #f3f0e9; /* warm ivory — primary light text */
+  --color-champagne: #b4b0a8; /* neutral platinum — monochrome accent */
+  --color-champagne-soft: #d8d5cd;
+  --color-emerald: #161616; /* near-black charcoal panel */
+  --color-forest: #242424; /* graphite */
+
+  /* Motion */
+  --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Hover accent — gold → emerald gradient */
   --color-gold: #c9a227;
-  /* richer gold to match the invite */
-  --color-gold-soft: #e3cd86;
-  --color-ink: #16281f;
-  /* near-black, green-tinted text */
+  --color-gold-mut: #b49a68; /* muted champagne — gallery accents */
+  --color-emerald-deep: #123d32; /* deep emerald */
+  --grad-luxe: linear-gradient(
+    120deg,
+    #b08a2e 0%,
+    #caa24a 18%,
+    #1f6b47 62%,
+    #0f3527 100%
+  );
 }
 
+/* ============================================================
+   BASE
+   ============================================================ */
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+/* Offset anchored sections for the fixed navbar */
+section[id] {
+  scroll-margin-top: 96px;
 }
 
 body {
-  background-color: var(--color-cream);
-  color: var(--color-ink);
+  background-color: var(--color-obsidian);
+  color: var(--color-ivory);
   font-family: var(--font-body);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
   overflow-x: hidden;
 }
 
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
 ::selection {
-  background-color: var(--color-wine);
-  color: var(--color-cream);
+  background-color: var(--color-champagne);
+  color: var(--color-obsidian);
 }
 
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible {
-  outline: 2px solid var(--color-wine);
+:focus-visible {
+  outline: 1px solid var(--color-champagne);
   outline-offset: 3px;
-  border-radius: 2px;
 }
 
-.font-script {
-  font-family: var(--font-script);
+/* Elegant thin scrollbar */
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-obsidian);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-graphite);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-champagne);
 }
 
-.font-heading {
-  font-family: var(--font-heading);
+/* ============================================================
+   TYPOGRAPHY HELPERS
+   ============================================================ */
+.font-display {
+  font-family: var(--font-display);
 }
-
 .font-body {
   font-family: var(--font-body);
 }
 
-@keyframes fade-up {
+/* Small uppercase editorial label */
+.eyebrow {
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 0.42em;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--color-champagne);
+}
+
+/* Fluid display sizes */
+.display-xl {
+  font-family: var(--font-display);
+  font-weight: 300;
+  line-height: 0.98;
+  font-size: clamp(3.25rem, 11vw, 9rem);
+  letter-spacing: 0.02em;
+}
+.display-lg {
+  font-family: var(--font-display);
+  font-weight: 300;
+  line-height: 1.04;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+}
+.display-md {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.1;
+  font-size: clamp(2rem, 4.2vw, 3.25rem);
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.wrap {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+@media (min-width: 640px) {
+  .wrap {
+    padding-inline: 2.5rem;
+  }
+}
+
+.section {
+  padding-block: clamp(5rem, 12vw, 9.5rem);
+}
+
+/* ============================================================
+   DECORATIVE RULES
+   ============================================================ */
+.hairline {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-graphite),
+    transparent
+  );
+}
+
+/* Centered ornament: line · diamond · line */
+.ornament {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--color-champagne);
+}
+.ornament::before,
+.ornament::after {
+  content: "";
+  height: 1px;
+  width: 3rem;
+  background: var(--color-champagne);
+  opacity: 0.5;
+}
+.ornament--left::before {
+  display: none;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  padding: 1rem 2.25rem;
+  border-radius: 2px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s var(--ease-lux),
+    color 0.3s var(--ease-lux),
+    border-color 0.3s var(--ease-lux),
+    transform 0.3s var(--ease-lux);
+  will-change: transform;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-solid {
+  background: var(--color-ivory);
+  color: var(--color-obsidian);
+  border: 1px solid var(--color-ivory);
+}
+.btn-solid:hover {
+  background: var(--color-champagne);
+  border-color: var(--color-champagne);
+  color: var(--color-obsidian);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-ivory);
+  border: 1px solid var(--color-graphite);
+}
+.btn-outline:hover {
+  border-color: var(--color-champagne);
+  color: var(--color-champagne);
+}
+
+.btn-gold {
+  background: var(--color-champagne);
+  color: var(--color-obsidian);
+  border: 1px solid var(--color-champagne);
+}
+.btn-gold:hover {
+  background: var(--color-champagne-soft);
+  border-color: var(--color-champagne-soft);
+}
+
+/* Unified hover — gold → emerald gradient reveal on every button */
+.btn-solid:hover,
+.btn-outline:hover,
+.btn-gold:hover {
+  background-image: var(--grad-luxe);
+  border-color: transparent;
+  color: var(--color-ivory);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Text link with animated underline */
+.link-underline {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 1px;
+  width: 100%;
+  background-image: var(--grad-luxe);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease-lux);
+}
+.link-underline:hover::after {
+  transform: scaleX(1);
+}
+
+/* Gradient utilities (gold → emerald) */
+.grad-luxe {
+  background-image: var(--grad-luxe);
+}
+.text-grad {
+  background-image: var(--grad-luxe);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ============================================================
+   SCROLL REVEAL (progressive — JS adds hidden state)
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.9s var(--ease-lux),
+    transform 0.9s var(--ease-lux);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hero entrance keyframes (run once on load) */
+@keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(24px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-
-.animate-fade-up {
-  animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes lineGrow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.anim-rise {
+  opacity: 0;
+  animation: rise 1s var(--ease-lux) forwards;
+}
+.anim-fade {
+  opacity: 0;
+  animation: fade 1.4s var(--ease-lux) forwards;
 }
 
-.divider-ornament {
+/* Slow, subtle Ken-Burns style hero breathing */
+@keyframes heroZoom {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+.anim-hero-zoom {
+  animation: heroZoom 8s var(--ease-lux) forwards;
+}
+
+/* Hero lazy-load — the photograph resolves from a shimmer, then the copy rises */
+.hero-media img {
+  opacity: 0;
+  transition: opacity 1.1s var(--ease-lux);
+}
+.hero-media.is-loaded img {
+  opacity: 1;
+}
+.hero-skeleton {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, #101010 30%, #1e1e1e 50%, #101010 70%);
+  background-size: 200% 100%;
+  animation: heroShimmer 1.4s var(--ease-lux) infinite;
+  transition: opacity 0.8s var(--ease-lux);
+}
+.hero-media.is-loaded .hero-skeleton {
+  opacity: 0;
+  pointer-events: none;
+}
+@keyframes heroShimmer {
+  from {
+    background-position: 180% 0;
+  }
+  to {
+    background-position: -20% 0;
+  }
+}
+/* hold the hero copy until the media is ready, then stagger it in */
+.hero-copy .anim-rise {
+  opacity: 0;
+  animation: none;
+}
+.hero-copy.is-ready .anim-rise {
+  animation: rise 1s var(--ease-lux) forwards;
+}
+
+/* Scroll cue */
+@keyframes scrollCue {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(14px);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.scroll-cue-dot {
+  animation: scrollCue 2.4s ease-in-out infinite;
+}
+
+/* Gallery reel — progress hairline refilling during each scene */
+@keyframes sceneProgress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.scene-progress {
+  transform: scaleX(0);
+  animation: sceneProgress 4s linear forwards;
+}
+
+/* Gallery filmstrip — horizontal scroll without a visible bar */
+.strip-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.strip-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* ============================================================
+   3D CURVED CAROUSEL — luxury coverflow gallery
+   ============================================================ */
+.carousel-scene {
+  --card-w: clamp(150px, 46vw, 340px);
+  --scene-h: calc(var(--card-w) * 4 / 3);
+  position: relative;
+  width: 100%;
+  height: var(--scene-h);
+  perspective: 1500px;
+  touch-action: pan-y;
+}
+@media (min-width: 640px) {
+  .carousel-scene {
+    --card-w: clamp(210px, 30vw, 340px);
+  }
+}
+@media (min-width: 1280px) {
+  .carousel-scene {
+    perspective: 1900px;
+  }
+}
+
+/* No overflow-hidden here — far cards stay opacity-0, and the scene
+   must not clip cards mid-transition. */
+.carousel-card {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: var(--card-w);
+  height: calc(var(--card-w) * 4 / 3);
+  margin: 0;
+  cursor: pointer;
+  overflow: visible;
+  background: var(--color-charcoal);
+  border: 1px solid var(--color-graphite);
+  border-radius: 8px;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  box-shadow: 0 24px 50px -24px rgba(0, 0, 0, 0.65);
+  transition:
+    transform 0.7s var(--ease-lux),
+    opacity 0.7s var(--ease-lux),
+    border-color 0.4s var(--ease-lux);
+  will-change: transform, opacity;
+}
+.carousel-card--active {
+  cursor: zoom-in;
+  border-color: rgba(180, 154, 104, 0.55);
+}
+.carousel-card--active:hover {
+  border-color: var(--color-gold-mut);
+}
+.carousel-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+/* Fine-art monochrome grade + intentional colour reveals.
+   Mono: rich blacks, soft charcoal shadows, silver-grey highlights —
+   lifted so faces stay clear without going muddy.
+   Colour: a restrained cinematic grade, no garish saturation.
+   The filter eases over 700ms so a print reveals its tone as it reaches
+   centre, with no flicker. */
+.carousel-photo {
+  border-radius: 6px;
+  transition: filter 700ms var(--ease-lux);
+}
+.carousel-photo.is-mono {
+  filter: grayscale(1) contrast(1.06) saturate(1) brightness(1.04) sepia(0.06);
+}
+.carousel-photo.is-color {
+  filter: grayscale(0) contrast(1.03) saturate(1.05) brightness(1.02) sepia(0);
+}
+
+/* quiet gold cue on the active print — appears on hover */
+.carousel-view-cue {
+  position: absolute;
+  bottom: 0.85rem;
+  left: 50%;
+  translate: -50% 0;
+  z-index: 6;
+  pointer-events: none;
+  opacity: 0;
+  font-size: 0.58rem;
+  letter-spacing: 0.3em;
+  color: var(--color-gold-mut);
+  border-top: 1px solid rgba(180, 154, 104, 0.4);
+  padding: 0.45rem 0.9rem 0;
+  transition: opacity 0.4s var(--ease-lux);
+}
+.carousel-card--active:hover .carousel-view-cue {
+  opacity: 1;
+}
+
+/* gentle entrance when a scene takes its place — animates the
+   independent translate/scale properties so it never fights the
+   inline 3D transform that positions each card */
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    translate: 0 26px;
+    scale: 0.92;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+}
+.carousel-card {
+  animation: cardIn 0.9s var(--ease-lux) both;
+  animation-delay: calc(var(--i) * 45ms);
+}
+.carousel-scene.is-settled .carousel-card {
+  animation: none;
+}
+
+/* while dragging, cards track the pointer exactly — no easing lag */
+.carousel-scene.is-dragging .carousel-card {
+  transition-duration: 0ms;
+}
+
+/* lightbox — restrained fade + scale entrance */
+@keyframes lbOverlay {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes lbFigure {
+  from { opacity: 0; scale: 0.96; }
+  to   { opacity: 1; scale: 1; }
+}
+.lightbox-overlay {
+  animation: lbOverlay 0.35s var(--ease-lux) both;
+}
+.lightbox-figure {
+  animation: lbFigure 0.5s var(--ease-lux) both;
+}
+
+/* autoplay hairline — one quiet refill per scene */
+@keyframes carouselFill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.carousel-fill {
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: carouselFill 6000ms linear forwards;
+}
+
+/* ============================================================
+   BACKGROUND MUSIC TOGGLE — discreet, fixed, visitor-controlled
+   ============================================================ */
+.audio-toggle {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 50;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  justify-content: center;
+  width: 2.85rem;
+  height: 2.85rem;
+  border-radius: 999px;
+  color: var(--color-silver);
+  background: color-mix(in srgb, var(--color-obsidian) 72%, transparent);
+  border: 1px solid var(--color-graphite);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition:
+    color 0.35s var(--ease-lux),
+    border-color 0.35s var(--ease-lux),
+    transform 0.35s var(--ease-lux);
 }
-
-.divider-ornament::before,
-.divider-ornament::after {
-  content: "";
-  height: 1px;
-  width: 2.5rem;
-  background: var(--color-gold);
+.audio-toggle:hover {
+  color: var(--color-ivory);
+  border-color: var(--color-gold-mut);
+}
+.audio-toggle:active {
+  transform: scale(0.94);
+}
+.audio-toggle[data-state="playing"] {
+  color: var(--color-gold-mut);
+  border-color: rgba(180, 154, 104, 0.55);
+}
+.audio-toggle[data-state="error"] {
+  color: var(--color-ash);
+  border-color: var(--color-graphite);
+  cursor: not-allowed;
   opacity: 0.6;
 }
 
-::-webkit-scrollbar {
-  width: 10px;
+/* equalizer — three bars breathing while the soundtrack plays */
+.eq {
+  display: flex;
+  align-items: flex-end;
+  gap: 2.5px;
+  height: 15px;
+}
+.eq > span {
+  width: 2.5px;
+  height: 100%;
+  background: currentColor;
+  transform: scaleY(0.4);
+  transform-origin: bottom;
+  border-radius: 1px;
+  animation: eq 1s var(--ease-lux) infinite;
+}
+.eq > span:nth-child(2) {
+  animation-delay: -0.35s;
+}
+.eq > span:nth-child(3) {
+  animation-delay: -0.7s;
+}
+@keyframes eq {
+  0%,
+  100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
 }
 
-::-webkit-scrollbar-track {
-  background: var(--color-cream);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-gold-soft);
+/* loading — a single quiet pulsing dot */
+.audio-loading {
+  width: 6px;
+  height: 6px;
   border-radius: 999px;
+  background: currentColor;
+  animation: audioPulse 1.1s ease-in-out infinite;
+}
+@keyframes audioPulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ============================================================
+   INTRO SPLASH — "Meet The Afemijes" typewriter pre-intro
+   ============================================================ */
+.intro-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  cursor: pointer;
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(18, 61, 50, 0.55), transparent 60%),
+    radial-gradient(120% 90% at 50% 100%, rgba(180, 154, 104, 0.1), transparent 55%),
+    var(--color-obsidian);
+  animation: splashIn 0.9s var(--ease-lux) both;
+}
+.intro-splash.is-leaving {
+  animation: splashOut 0.9s var(--ease-lux) forwards;
+  pointer-events: none;
+}
+@keyframes splashIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes splashOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.03);
+  }
+}
+.intro-splash__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+.intro-splash__mono {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  letter-spacing: 0.42em;
+  color: var(--color-gold-mut);
+}
+.intro-splash__title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2.4rem, 9vw, 6.5rem);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  color: var(--color-ivory);
+  min-height: 1.1em;
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+}
+.type-caret {
+  display: inline-block;
+  width: 2px;
+  height: 0.85em;
+  margin-left: 0.1em;
+  background: var(--color-gold-mut);
+  animation: caretBlink 1s steps(1) infinite;
+}
+@keyframes caretBlink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+.intro-splash__sub,
+.intro-splash__enter {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.8s var(--ease-lux),
+    transform 0.8s var(--ease-lux);
+}
+.intro-splash__sub.is-in,
+.intro-splash__enter.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.intro-splash__sub {
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  font-size: 0.7rem;
+  color: var(--color-silver);
+}
+.intro-splash__enter {
+  margin-top: 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  padding: 0.85rem 2rem;
+  border: 1px solid var(--color-gold-mut);
+  border-radius: 2px;
+  color: var(--color-ivory);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    background-color 0.4s var(--ease-lux),
+    color 0.4s var(--ease-lux);
+}
+.intro-splash__enter:hover {
+  background: var(--color-gold-mut);
+  color: var(--color-obsidian);
+}
+.intro-splash__skip {
+  position: absolute;
+  bottom: 2rem;
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: var(--color-ash);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-card {
+    animation: none;
+    transition-duration: 0.001ms;
+  }
+  .carousel-fill {
+    animation: none;
+  }
+  .lightbox-overlay,
+  .lightbox-figure {
+    animation: none;
+  }
+  /* keep a clear static "playing" cue without motion */
+  .eq > span {
+    animation: none;
+    transform: scaleY(0.65);
+  }
+  .audio-loading {
+    animation: none;
+    opacity: 0.7;
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .anim-rise,
+  .anim-fade {
+    opacity: 1;
+  }
+  .anim-hero-zoom {
+    transform: none;
+  }
+  .scene-progress {
+    animation: none;
+    transform: scaleX(1);
+  }
+  .hero-media img {
+    opacity: 1 !important;
+  }
+  .hero-skeleton {
+    display: none !important;
+  }
+  .hero-copy .anim-rise {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+  .type-caret {
+    animation: none !important;
+    opacity: 1;
+  }
 }

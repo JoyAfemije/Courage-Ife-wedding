@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import weddingData from "../data/weddingData.js";
+import Reveal from "./Reveal.jsx";
 
 function getTimeRemaining() {
   const target = new Date(weddingData.weddingDate).getTime();
@@ -29,42 +30,44 @@ export default function Countdown() {
   const [time, setTime] = useState(getTimeRemaining());
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(getTimeRemaining());
-    }, 1000);
+    const interval = setInterval(() => setTime(getTimeRemaining()), 1000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section className="bg-wine-deep text-cream py-16 sm:py-20">
-      <div className="max-w-4xl mx-auto px-6 text-center">
-        <p className="font-heading tracking-[0.2em] text-xs sm:text-sm text-gold-soft mb-3">
-          COUNTING DOWN TO
-        </p>
-        <h2 className="font-script text-4xl sm:text-5xl mb-10">
-          Our Wedding Day
-        </h2>
+    <section className="relative bg-night border-y border-graphite section">
+      <div className="wrap text-center">
+        <Reveal>
+          <p className="eyebrow mb-6">Counting Down To</p>
+          <h2 className="display-md text-ivory mb-14 sm:mb-16">
+            Our Wedding Day
+          </h2>
+        </Reveal>
 
         {time.done ? (
-          <p className="font-heading text-2xl sm:text-3xl text-gold-soft">
-            Today is the day!
-          </p>
+          <Reveal>
+            <p className="font-display text-4xl sm:text-5xl text-champagne">
+              Today is the day.
+            </p>
+          </Reveal>
         ) : (
-          <div className="flex justify-center gap-3 sm:gap-6">
-            {units.map((unit) => (
-              <div
-                key={unit.key}
-                className="flex flex-col items-center bg-cream/5 border border-gold-soft/30 rounded-xl w-16 sm:w-24 py-4 sm:py-6"
-              >
-                <span className="font-heading text-2xl sm:text-4xl font-semibold tabular-nums">
-                  {String(time[unit.key]).padStart(2, "0")}
-                </span>
-                <span className="font-body text-[10px] sm:text-xs mt-1 text-cream/70">
-                  {unit.label}
-                </span>
-              </div>
-            ))}
-          </div>
+          <Reveal delay={120}>
+            <div className="flex items-start justify-center divide-x divide-graphite">
+              {units.map((unit) => (
+                <div
+                  key={unit.key}
+                  className="flex w-20 flex-col items-center sm:w-40 px-2 sm:px-4"
+                >
+                  <span className="font-display font-light text-ivory tabular-nums leading-none text-[clamp(2.75rem,9vw,5.5rem)]">
+                    {String(time[unit.key]).padStart(2, "0")}
+                  </span>
+                  <span className="mt-4 font-body text-[0.6rem] uppercase tracking-[0.28em] text-silver/70 sm:text-[0.7rem] sm:tracking-[0.32em]">
+                    {unit.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </Reveal>
         )}
       </div>
     </section>

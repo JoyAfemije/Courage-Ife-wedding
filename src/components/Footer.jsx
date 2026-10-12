@@ -1,42 +1,43 @@
-import { AtSign } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import weddingData from "../data/weddingData.js";
 
 export default function Footer() {
-  const { couple, hero, footer, socials } = weddingData;
+  const { hero, footer } = weddingData;
 
   return (
-    <footer className="bg-ivory py-12 text-center border-t border-gold-soft/30">
-      <p className="font-script text-3xl text-wine mb-2">
-        {couple.fullTitle}
-      </p>
-      <p className="font-heading text-sm text-ink/70 mb-4">
-        {hero.dateDisplay}
-      </p>
+    <footer className="relative bg-obsidian border-t border-graphite">
+      <div className="wrap py-16 text-center">
+        <a
+          href="#home"
+          className="font-display text-3xl tracking-[0.28em] text-ivory"
+          aria-label="Back to top"
+        >
+          C&nbsp;<span className="text-champagne font-light italic">&amp;</span>&nbsp;I
+        </a>
 
-      <p className="font-heading text-sm tracking-[0.15em] text-gold mb-4">
-  {weddingData.hashtag}
-</p>
+        <p className="mt-5 font-body text-[0.7rem] uppercase tracking-[0.3em] text-ash">
+          {hero.dateDisplay}
+        </p>
 
-      {socials?.length > 0 && (
-        <div className="flex justify-center gap-4 mb-5">
-          {socials.map((social) => (
-            <a
-              key={social.platform}
-              href={social.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={social.platform}
-              className="text-wine/70 hover:text-wine transition-colors"
-            >
-              {social.platform === "Instagram" && <AtSign size={18} />}
-            </a>
-          ))}
+        <p className="mt-8 font-body text-xs uppercase tracking-[0.32em] text-champagne">
+          {weddingData.hashtag}
+        </p>
+
+        <div className="my-10 hairline" />
+
+        <div className="flex flex-col items-center gap-4">
+          <p className="font-display italic text-lg text-silver">
+            {footer.message}
+          </p>
+          <a
+            href="#home"
+            className="inline-flex items-center gap-2 text-[0.65rem] uppercase tracking-[0.28em] text-ash transition-colors duration-300 hover:text-champagne"
+          >
+            <ArrowUp size={14} />
+            Back to top
+          </a>
         </div>
-      )}
-
-      <p className="font-body text-xs text-ink/50 italic">
-        {footer.message}
-      </p>
+      </div>
     </footer>
   );
 }

@@ -1,19 +1,33 @@
 import weddingData from "../data/weddingData.js";
+import Reveal from "./Reveal.jsx";
 
 export default function Intro() {
   const { intro } = weddingData;
 
   return (
-    <section className="max-w-2xl mx-auto px-6 py-20 sm:py-28 text-center">
-      <div className="divider-ornament justify-center mb-6">
-        <span className="font-script text-2xl text-wine">Welcome</span>
+    <section
+      id="intro"
+      className="relative bg-obsidian section"
+    >
+      <div className="wrap max-w-3xl text-center">
+        <Reveal>
+          <p className="eyebrow mb-8">{intro.heading}</p>
+        </Reveal>
+
+        <Reveal delay={100}>
+          <p className="font-display text-ivory leading-[1.35] text-[clamp(1.75rem,4vw,2.75rem)] font-light">
+            {intro.body}
+          </p>
+        </Reveal>
+
+        <Reveal delay={220}>
+          <div className="mt-12 flex justify-center">
+            <span className="ornament" aria-hidden="true">
+              <span className="block h-1 w-1 rotate-45 bg-champagne" />
+            </span>
+          </div>
+        </Reveal>
       </div>
-      <h2 className="font-heading text-2xl sm:text-3xl text-wine-deep mb-5">
-        {intro.heading}
-      </h2>
-      <p className="font-body text-base sm:text-lg leading-relaxed text-ink/80">
-        {intro.body}
-      </p>
     </section>
   );
 }
