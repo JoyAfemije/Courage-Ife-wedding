@@ -15,6 +15,10 @@ export default function AudioToggle() {
   const [status, setStatus] = useState("idle"); // idle | loading | playing | paused | error
   const music = weddingData.music;
 
+  // Once a visitor deliberately pauses, the first-gesture autoplay must not
+  // override them for the rest of the visit.
+  const userPausedRef = useRef(false);
+
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -36,17 +40,39 @@ export default function AudioToggle() {
     audio.addEventListener("ended", onEnded);
     audio.addEventListener("error", onError);
 
-    // Graceful, single autoplay attempt. Most browsers block audible autoplay
-    // without a gesture; if rejected we simply stay paused for a manual tap —
-    // we never retry or fake a playing state.
-    if (music?.src) {
-      const attempt = audio.play();
-      if (attempt && typeof attempt.catch === "function") {
-        attempt.catch(() => setStatus("paused"));
+    // Autoplay intent: the soundtrack should start the moment the visitor opens
+    // the site, then loop continuously until they leave.
+    //
+    // Browsers only permit audible autoplay once the visitor has shown
+    // engagement, so we attempt it immediately (works for returning visitors)
+    // and otherwise arm a one-shot start on the very first tap / keypress —
+    // dismissing the intro splash counts as that gesture. We never fake a
+    // playing state: the UI is driven purely by the audio element's events.
+    const attemptPlay = () => {
+      if (!music?.src || audio.error || userPausedRef.current) return;
+      if (!audio.paused) return;
+      const p = audio.play();
+      if (p && typeof p.catch === "function") {
+        p.catch(() => setStatus("paused"));
       }
-    }
+    };
+
+    attemptPlay();
+
+    const unlock = (e) => {
+      // Let the toggle button handle its own clicks (so a first tap on the
+      // button isn't played-then-immediately-paused by two handlers).
+      if (e.target instanceof Element && e.target.closest(".audio-toggle")) return;
+      attemptPlay();
+    };
+    window.addEventListener("pointerdown", unlock, { capture: true, passive: true });
+    window.addEventListener("keydown", unlock, { capture: true });
+    window.addEventListener("wheel", unlock, { capture: true, passive: true });
 
     return () => {
+      window.removeEventListener("pointerdown", unlock, { capture: true });
+      window.removeEventListener("keydown", unlock, { capture: true });
+      window.removeEventListener("wheel", unlock, { capture: true });
       audio.removeEventListener("play", onPlay);
       audio.removeEventListener("playing", onPlaying);
       audio.removeEventListener("pause", onPause);
@@ -63,8 +89,11 @@ export default function AudioToggle() {
     if (!audio || !music?.src) return;
     if (status === "error") return;
     if (status === "playing" || status === "loading") {
+      // An explicit pause is respected for the rest of the visit.
+      userPausedRef.current = true;
       audio.pause();
     } else {
+      userPausedRef.current = false;
       setStatus("loading");
       const p = audio.play();
       if (p && typeof p.catch === "function") {
@@ -86,7 +115,7 @@ export default function AudioToggle() {
 
   return (
     <>
-      <audio ref={audioRef} src={music.src} loop preload="none" />
+      <audio ref={audioRef} src={music.src} loop preload="metadata" />
       <button
         type="button"
         className="audio-toggle"
