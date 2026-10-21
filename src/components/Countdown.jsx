@@ -35,8 +35,11 @@ export default function Countdown() {
   }, []);
 
   return (
-    <section className="relative bg-night border-y border-graphite section">
-      <div className="wrap text-center">
+    <section className="relative bg-night border-y border-graphite section overflow-hidden">
+      {/* soft transparent ash wash */}
+      <div className="absolute inset-0 ash-veil pointer-events-none" />
+
+      <div className="wrap relative text-center">
         <Reveal>
           <p className="eyebrow mb-6">Counting Down To</p>
           <h2 className="display-md text-ivory mb-14 sm:mb-16">

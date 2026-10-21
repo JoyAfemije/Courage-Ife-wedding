@@ -26,12 +26,12 @@ function App() {
         <Countdown />
         <OurStory />
         <Events />
+        <GiftSupport />
         <WeddingColours />
         <WeddingMaterial />
         <Gallery />
         <RSVP />
         <GuestWishes />
-        <GiftSupport />
         <Contact />
         <FinalCTA />
       </main>

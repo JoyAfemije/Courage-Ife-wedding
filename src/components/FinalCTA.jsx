@@ -10,13 +10,13 @@ export default function FinalCTA() {
 
   return (
     <section className="relative overflow-hidden bg-emerald section text-center">
-      <div className="absolute inset-0 bg-gradient-to-b from-obsidian/50 via-transparent to-obsidian/60 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-forest/70 via-transparent to-obsidian/60 pointer-events-none" />
       {/* restrained monogram watermark */}
       <span
         className="pointer-events-none absolute inset-0 flex items-center justify-center font-display text-[12rem] leading-none text-ivory/[0.04] select-none sm:text-[22rem]"
         aria-hidden="true"
       >
-        C&amp;I
+        I&amp;C
       </span>
 
       <div className="wrap relative">

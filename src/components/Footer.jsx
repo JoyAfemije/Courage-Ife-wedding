@@ -12,7 +12,7 @@ export default function Footer() {
           className="font-display text-3xl tracking-[0.28em] text-ivory"
           aria-label="Back to top"
         >
-          C&nbsp;<span className="text-champagne font-light italic">&amp;</span>&nbsp;I
+          I&nbsp;<span className="text-gold font-light italic">&amp;</span>&nbsp;C
         </a>
 
         <p className="mt-5 font-body text-[0.7rem] uppercase tracking-[0.3em] text-ash">

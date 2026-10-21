@@ -4,6 +4,12 @@
 // file only, so nothing else needs to change.
 // ============================================================
 
+import storyChapter1 from "../assets/gallery/IMG_4318.jpg";
+import storyChapter2 from "../assets/gallery/IMG_1172.jpg";
+import storyChapter3 from "../assets/gallery/IMG_5058.jpg";
+import storyChapter4 from "../assets/gallery/IMG_8620.jpg";
+import storyChapter5 from "../assets/gallery/IMG_9803.JPG";
+
 const weddingData = {
   couple: {
   groomName: "Courage",
@@ -43,31 +49,52 @@ splash: {
   story: {
     heading: "Our Story",
     intro:
-      "Every love story is beautiful, but ours is our favourite. Here's a little of how we got here.",
+      "Some love stories start with a plan. Ours started with a wrong number, a wrong group and a strange DM.",
     milestones: [
       {
-        year: "2019",
-        title: "How We Met",
+        id: "wrong-number",
+        year: "2018",
+        title: "Wrong Number, Right Girl",
         description:
-          "We met at a mutual friend's birthday dinner in Lekki. Courage swears it was love at first sight; Ife says it took her a little longer to admit it.",
+          'A mystery number added Courage to "Physiology Freshers." He was not a fresher. He was not in Physiology. Just before tapping "exit group," he slid into three DMs, and only one lady replied. Her name was Ife, and her replies were short, cold, and very much "who is this?" Days later, he wished her a happy belated birthday and refused to say how he knew. "Superpowers," he said. The short replies became long chats (a man knows game). He asked for a picture, got one, and nearly dropped his phone. "What in the world is this beauty?"',
+        image: storyChapter1,
+        imageAlt: "Courage and Ife's early moment together",
       },
       {
-        year: "2021",
-        title: "Our Journey",
+        id: "first-night",
+        year: "2018",
+        title: "The Boldest First Night",
         description:
-          "Through late-night phone calls, weekend suya runs, and a few road trips, we became each other's favourite people and closest friends.",
+          "They met that same evening, and within minutes Courage asked her to be his girlfriend (what's the worst she can say, right?). She said NO (Gbam!). She still teases him about it, and honestly, fair. But she also said he was cool, and that was all the opening he needed.",
+        image: storyChapter2,
+        imageAlt: "The couple on their first night out",
       },
       {
-        year: "2024",
-        title: "The Proposal",
+        id: "just-friends",
+        year: "2018 – 2020",
+        title: "\u201CHe's My Boyfriend\u201D",
         description:
-          "Courage proposed on a quiet Sunday evening at the beach in Victoria Island, with close family secretly watching from a distance. Ife said yes before he even finished the sentence.",
+          'They stayed "just friends." Ife took him on his first-ever date, and she paid. He\'s still blushing. Courage started dressing better, speaking better, and writing: letters, poems, then a song (men mount, men unmount, odogwu dey write love poem, chaiiii). Then one day someone asked Ife who this guy was, and she said, "He\'s my boyfriend." Courage was standing right there, finding out in real time (women shaaaaa…).',
+        image: storyChapter3,
+        imageAlt: "A date moment from their early years",
       },
       {
+        id: "the-proposal",
+        year: "2025",
+        title: "A Man Went on His Knees",
+        description:
+          "After years of laughing, growing, and getting each other through everything, asking her to marry him was the easiest decision Courage has ever made.",
+        image: storyChapter4,
+        imageAlt: "The proposal moment",
+      },
+      {
+        id: "wedding-day",
         year: "2026",
-        title: "Forever Begins",
+        title: "#MeetTheAfemijes",
         description:
-          "Now, we're counting down the days to becoming husband and wife, and we can't wait to celebrate this next chapter with the people who mean the most to us.",
+          "On the 29th of December, the girl who said NO on that first night says YES to forever (yes, yes, clockeeeet \ud83d\ude0d\ud83d\ude02). We can't wait to celebrate with the people who've watched this love story unfold.",
+        image: storyChapter5,
+        imageAlt: "Courage and Ife counting down to the wedding",
       },
     ],
   },
@@ -86,7 +113,7 @@ events: [
     id: "wedding-ceremony",
     name: "Wedding Ceremony",
     date: "Tuesday, 29th December 2026",
-    time: "9:00 AM", // placeholder — update once confirmed
+    time: "12:00 PM",
     venue: "Sycamore Church",
     address: "Samonda, Ibadan",
     mapsUrl: "https://maps.google.com/?q=Sycamore+Church+Samonda+Ibadan",
@@ -107,23 +134,25 @@ events: [
   note: "We can't wait to see you dressed in the colours of our special day.",
   palette: [
     { name: "Emerald", hex: "#14532D" },
-    { name: "Deep Forest", hex: "#0B2B20" },
     { name: "Gold", hex: "#C9A227" },
-    { name: "Ivory", hex: "#F8F4E8" },
   ],
 },
 
   material: {
     heading: "Wedding Material",
     body:
-      "To help us create a beautiful and coordinated celebration, guests who would like to participate can get the official wedding material from our designated contact.",
-    materialType: "Premium Damask (George)",
+      "To help us create a beautiful and coordinated celebration, guests who would like to participate can get the official wedding material — a Cap or a Gele — from our designated contact.",
+    items: [
+      { name: "Cap", price: "₦5,000" },
+      { name: "Gele", price: "₦15,000" },
+    ],
     colour: "Emerald & Gold",
-    contactPerson: "Courage",
-    phoneNumber: "+2348187894148",
-    whatsappNumber: "2348187894148",
+    paymentDeadline: "22nd November 2026",
+    contactPerson: "The Afemije Family",
+    phoneNumber: "09036218330",
+    whatsappNumber: "2349036218330",
     whatsappMessage:
-      "Hello Courage, I'd like to get the wedding material for Courage & Ife's wedding.",
+      "Hello! I'd like to get the wedding material (Cap / Gele) for Courage & Ife's wedding.",
     ctaLabel: "Get Material",
   },
 
@@ -197,20 +226,25 @@ events: [
     heading: "Celebrate With Us",
     body:
       "Your presence is the greatest gift. However, if you would like to bless us further, we've made it easy for you to do so.",
+    items: [
+      { name: "Cap", price: "₦5,000" },
+      { name: "Gele", price: "₦15,000" },
+    ],
+    paymentDeadline: "22nd November 2026",
     bankName: "GTBank",
     accountName: "Courage Udulishe Afemije",
     accountNumber: "8139981589",
-    paymentLink: "https://www.shein.com",
     copyLabel: "Copy Account Number",
     copiedLabel: "Account number copied!",
-    onlineLabel: "Send a Gift Online",
   },
 
   contact: {
   heading: "Get in Touch",
-  contactPerson: "The Afemije Family",
-  phoneNumber: "+2348187894148",
-  whatsappNumber: "2348187894148",
+  contactPerson: "Our Event Planner",
+  phoneNumber: "08108393317",
+  whatsappNumber: "2348108393317",
+  whatsappMessage:
+    "Hello! I have a question about Ifeoluwa & Courage's wedding.",
 },
 
   faq: {
@@ -239,7 +273,7 @@ events: [
       {
         question: "Where can I get the wedding material?",
         answer:
-          "Details on where to purchase the official aso-ebi material are available in the 'Wedding Material' section, including our contact person's number.",
+          "The wedding material is a Cap (₦5,000) or a Gele (₦15,000). Reach our contact on WhatsApp before the payment deadline — details are in the 'Wedding Material' section.",
       },
       {
         question: "Is there parking available?",

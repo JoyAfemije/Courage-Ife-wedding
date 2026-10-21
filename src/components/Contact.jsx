@@ -5,7 +5,9 @@ import Reveal from "./Reveal.jsx";
 
 export default function Contact() {
   const { contact } = weddingData;
-  const whatsappUrl = `https://wa.me/${contact.whatsappNumber}`;
+  const whatsappUrl = `https://wa.me/${contact.whatsappNumber}${
+    contact.whatsappMessage ? `?text=${encodeURIComponent(contact.whatsappMessage)}` : ""
+  }`;
 
   const channels = [
     { Icon: Phone, label: "Call", value: contact.phoneNumber, href: `tel:${contact.phoneNumber}`, external: false },
@@ -13,8 +15,11 @@ export default function Contact() {
   ];
 
   return (
-    <section className="relative bg-night section border-t border-graphite">
-      <div className="wrap max-w-xl">
+    <section className="relative bg-night section border-t border-graphite overflow-hidden">
+      {/* soft transparent ash wash */}
+      <div className="absolute inset-0 ash-veil pointer-events-none" />
+
+      <div className="wrap relative max-w-xl">
         <SectionHeading
           eyebrow="Questions?"
           title={contact.heading}

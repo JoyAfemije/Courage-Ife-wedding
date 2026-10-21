@@ -19,10 +19,8 @@ const assetImages = Object.keys(assetModules)
     alt: `Ifeoluwa and Courage — wedding photograph ${index + 1}`,
   }));
 
-// The gallery is presented entirely as fine-art black & white. To bring back a
-// curated colour accent, add a print's exact filename (from src/assets/gallery)
-// to this set — matching prints reveal their natural tone as they reach centre.
-const COLOR_PHOTOS = new Set();
+// Every print shows in its natural colour now — a gentle cinematic grade is
+// applied in CSS (.carousel-photo), no per-photo monochrome accents.
 
 // Graceful autoplay: one scene every 6 seconds
 const AUTOPLAY_MS = 6000;
@@ -265,7 +263,10 @@ export default function Gallery() {
       ref={sectionRef}
       className="relative bg-night section border-t border-graphite overflow-x-clip"
     >
-      <div className="wrap">
+      {/* soft transparent ash wash */}
+      <div className="absolute inset-0 ash-veil pointer-events-none" />
+
+      <div className="wrap relative">
         <SectionHeading
           eyebrow="Moments"
           title={gallery.heading}
@@ -296,7 +297,6 @@ export default function Gallery() {
               const abs = Math.abs(offset);
               const isActive = index === activeIndex;
               const visible = abs <= MAX_STEP + 0.6;
-              const revealColor = isActive && COLOR_PHOTOS.has(image.name);
               return (
                 <figure
                   key={image.src}
@@ -330,7 +330,7 @@ export default function Gallery() {
                     loading={abs <= 2 ? "eager" : "lazy"}
                     decoding="async"
                     draggable={false}
-                    className={`carousel-photo ${revealColor ? "is-color" : "is-mono"}`}
+                    className="carousel-photo"
                   />
                   {isActive && (
                     <span className="carousel-view-cue uppercase font-body">
@@ -443,7 +443,7 @@ export default function Gallery() {
               key={images[active].src}
               src={images[active].src}
               alt={images[active].alt}
-              className={`carousel-photo max-h-[78vh] w-auto max-w-full object-contain ${COLOR_PHOTOS.has(images[active].name) ? "is-color" : "is-mono"}`}
+              className="carousel-photo max-h-[78vh] w-auto max-w-full object-contain"
             />
             <figcaption className="sr-only">{images[active].alt}</figcaption>
           </figure>

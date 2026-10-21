@@ -28,7 +28,7 @@ export default function Hero() {
         <img
           ref={imgRef}
           src={heroImage}
-          alt="Ifeoluwa placing a ring on Courage's hand"
+          alt="Courage placing a ring on Ifeoluwa's hand"
           onLoad={() => setLoaded(true)}
           className="h-full w-full object-cover object-[center_38%] grayscale contrast-[1.05] anim-hero-zoom"
           loading="eager"
@@ -53,7 +53,7 @@ export default function Hero() {
 
         <h1 className="display-xl anim-rise" style={{ animationDelay: "0.55s" }}>
           {firstName}
-          <span className="mx-3 sm:mx-5 font-light italic text-champagne">&amp;</span>
+          <span className="mx-3 sm:mx-5 font-light italic text-gold">&amp;</span>
           <br className="sm:hidden" />
           {secondName}
         </h1>

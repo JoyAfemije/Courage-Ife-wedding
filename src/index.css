@@ -21,8 +21,9 @@
   --color-ivory: #f3f0e9; /* warm ivory — primary light text */
   --color-champagne: #b4b0a8; /* neutral platinum — monochrome accent */
   --color-champagne-soft: #d8d5cd;
-  --color-emerald: #161616; /* near-black charcoal panel */
-  --color-forest: #242424; /* graphite */
+  --color-emerald: #104a38; /* colour of the day — deep emerald panel */
+  --color-emerald-soft: #2f8f68; /* botanical accent — stems & leaves */
+  --color-forest: #0a2c21; /* darkest emerald — gradients */
 
   /* Motion */
   --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
@@ -190,6 +191,71 @@ h4 {
 }
 
 /* ============================================================
+   SURFACE WASHES
+   ============================================================ */
+/* Soft ash/grey wash for alternating section backgrounds */
+.ash-veil {
+  background: linear-gradient(
+    180deg,
+    rgba(163, 167, 163, 0.14),
+    rgba(132, 138, 134, 0.07) 55%,
+    rgba(163, 167, 163, 0.12)
+  );
+}
+
+/* ============================================================
+   ANIMATED BORDER — gold & emerald light travelling around a card
+   ============================================================ */
+@property --travel {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.anim-border {
+  position: relative;
+  z-index: 0;
+}
+.anim-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--travel) at 50% 50%,
+    rgba(201, 162, 39, 0.1),
+    var(--color-gold) 55deg,
+    var(--color-emerald-soft) 120deg,
+    rgba(18, 61, 50, 0.15) 200deg,
+    var(--color-gold) 300deg,
+    rgba(201, 162, 39, 0.1)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: borderTravel 7s linear infinite;
+  pointer-events: none;
+}
+@keyframes borderTravel {
+  to {
+    --travel: 360deg;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .anim-border::before {
+    animation: none;
+  }
+  .intro-splash__ring {
+    animation: none;
+  }
+}
+
+/* ============================================================
    BUTTONS
    ============================================================ */
 .btn {
@@ -305,6 +371,89 @@ h4 {
 .reveal.is-in {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Directional entrances — story chapters glide in from alternating sides */
+.reveal--up {
+  transform: translateY(26px);
+}
+.reveal--left {
+  transform: translateX(-44px);
+}
+.reveal--right {
+  transform: translateX(44px);
+}
+.reveal--zoom {
+  transform: translateY(18px) scale(0.94);
+}
+.reveal--left.is-in,
+.reveal--right.is-in {
+  transform: translateX(0);
+}
+.reveal--zoom.is-in {
+  transform: translateY(0) scale(1);
+}
+
+/* Skip compositing work for off-screen chapters — smooth long-scroll */
+.story-chapter {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 480px;
+}
+
+/* Story photograph frame — the image resolves from a shimmer as it enters */
+.story-photo {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--color-charcoal);
+}
+.story-photo img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.04);
+  /* faded old-print grade — warm sepia wash, softened contrast */
+  filter: sepia(0.55) saturate(0.6) contrast(0.94) brightness(1.02) blur(1px);
+  transition:
+    opacity 1s var(--ease-lux),
+    transform 1.6s var(--ease-lux),
+    filter 1.4s var(--ease-lux);
+}
+.story-photo.is-loaded img {
+  opacity: 1;
+  transform: scale(1);
+  filter: sepia(0.38) saturate(0.68) contrast(0.96) brightness(1);
+}
+/* aged-paper vignette — gentle darkening toward the edges of the print */
+.story-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(
+    120% 100% at 50% 45%,
+    transparent 55%,
+    rgba(11, 11, 11, 0.38) 100%
+  );
+}
+.story-photo__skeleton {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(100deg, #141414 30%, #232323 50%, #141414 70%);
+  background-size: 200% 100%;
+  animation: heroShimmer 1.5s var(--ease-lux) infinite;
+  transition: opacity 0.8s var(--ease-lux);
+}
+.story-photo.is-loaded .story-photo__skeleton {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* Hero entrance keyframes (run once on load) */
@@ -498,21 +647,12 @@ h4 {
   user-select: none;
 }
 
-/* Fine-art monochrome grade + intentional colour reveals.
-   Mono: rich blacks, soft charcoal shadows, silver-grey highlights —
-   lifted so faces stay clear without going muddy.
-   Colour: a restrained cinematic grade, no garish saturation.
-   The filter eases over 700ms so a print reveals its tone as it reaches
-   centre, with no flicker. */
+/* Fine-art colour grade — prints keep their natural tone, gently lifted.
+   The filter eases over 700ms so the tone settles without flicker. */
 .carousel-photo {
   border-radius: 6px;
   transition: filter 700ms var(--ease-lux);
-}
-.carousel-photo.is-mono {
-  filter: grayscale(1) contrast(1.06) saturate(1) brightness(1.04) sepia(0.06);
-}
-.carousel-photo.is-color {
-  filter: grayscale(0) contrast(1.03) saturate(1.05) brightness(1.02) sepia(0);
+  filter: grayscale(0) contrast(1.03) saturate(1.06) brightness(1.02);
 }
 
 /* quiet gold cue on the active print — appears on hover */
@@ -690,7 +830,7 @@ h4 {
 }
 
 /* ============================================================
-   INTRO SPLASH — "Meet The Afemijes" typewriter pre-intro
+   INTRO SPLASH — opening film (slow-mo, B&W) → "Meet The Afemijes"
    ============================================================ */
 .intro-splash {
   position: fixed;
@@ -704,13 +844,111 @@ h4 {
   padding: 2rem;
   cursor: pointer;
   background:
-    radial-gradient(120% 90% at 50% 0%, rgba(18, 61, 50, 0.55), transparent 60%),
-    radial-gradient(120% 90% at 50% 100%, rgba(180, 154, 104, 0.1), transparent 55%),
+    radial-gradient(120% 90% at 50% 0%, rgba(16, 74, 56, 0.5), transparent 60%),
+    radial-gradient(120% 90% at 50% 100%, rgba(201, 162, 39, 0.12), transparent 55%),
     var(--color-obsidian);
   animation: splashIn 0.9s var(--ease-lux) both;
+  overflow: hidden;
 }
 .intro-splash.is-leaving {
   animation: splashOut 0.9s var(--ease-lux) forwards;
+  pointer-events: none;
+}
+
+/* The opening film — pushed back into a centered oval medallion so the
+   screen never feels covered. Slow motion, black & white, clearly legible. */
+.intro-splash__medallion {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    opacity 1.3s var(--ease-lux),
+    transform 1.6s var(--ease-lux);
+}
+/* near the end / on skip: the whole medallion drifts back and fades out */
+.intro-splash__medallion.is-out {
+  opacity: 0;
+  transform: scale(0.82);
+}
+.intro-splash__frame {
+  position: relative;
+  width: min(70vw, 540px);
+  height: min(58vh, 440px);
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(201, 162, 39, 0.28),
+    0 30px 80px -30px rgba(0, 0, 0, 0.9),
+    inset 0 0 70px 26px rgba(11, 11, 11, 0.6);
+}
+.intro-splash__video {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%; /* keep the ring/moment centred in the oval */
+  opacity: 0.95;
+  filter: grayscale(1) contrast(1.04) brightness(0.92);
+  animation:
+    videoFadeIn 1.2s var(--ease-lux) both,
+    videoZoomOut 12s linear both;
+}
+@keyframes videoFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.95;
+  }
+}
+/* continuous slow pull-back while the film plays — starts framing the
+   key moment a touch close, settles wider inside the oval */
+@keyframes videoZoomOut {
+  from {
+    transform: scale(1.14);
+  }
+  to {
+    transform: scale(0.96);
+  }
+}
+/* gold → emerald comet travelling endlessly around the oval.
+   Sits behind the video; only its 3px rim peeks out at the frame edge. */
+.intro-splash__ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from var(--ring-angle, 0deg),
+    var(--color-gold) 0deg,
+    var(--color-emerald-soft) 70deg,
+    rgba(201, 162, 39, 0.12) 150deg,
+    var(--color-gold) 360deg
+  );
+  animation: ringSpin 6s linear infinite;
+  pointer-events: none;
+}
+@keyframes ringSpin {
+  to {
+    --ring-angle: 360deg;
+  }
+}
+@property --ring-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+/* cinematic veil — the medallion already carries its own inner vignette,
+   so this only softens the screen edges */
+.intro-splash__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(75% 60% at 50% 50%, transparent 55%, rgba(11, 11, 11, 0.5) 100%);
   pointer-events: none;
 }
 @keyframes splashIn {
@@ -732,6 +970,8 @@ h4 {
   }
 }
 .intro-splash__inner {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -742,6 +982,15 @@ h4 {
   font-size: 1.2rem;
   letter-spacing: 0.42em;
   color: var(--color-gold-mut);
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.8s var(--ease-lux),
+    transform 0.8s var(--ease-lux);
+}
+.intro-splash__mono.is-in {
+  opacity: 1;
+  transform: translateY(0);
 }
 .intro-splash__title {
   font-family: var(--font-display);
@@ -773,16 +1022,14 @@ h4 {
     opacity: 0;
   }
 }
-.intro-splash__sub,
-.intro-splash__enter {
+.intro-splash__sub {
   opacity: 0;
   transform: translateY(10px);
   transition:
     opacity 0.8s var(--ease-lux),
     transform 0.8s var(--ease-lux);
 }
-.intro-splash__sub.is-in,
-.intro-splash__enter.is-in {
+.intro-splash__sub.is-in {
   opacity: 1;
   transform: translateY(0);
 }
@@ -793,29 +1040,14 @@ h4 {
   font-size: 0.7rem;
   color: var(--color-silver);
 }
-.intro-splash__enter {
-  margin-top: 0.75rem;
-  font-family: var(--font-body);
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.24em;
-  padding: 0.85rem 2rem;
-  border: 1px solid var(--color-gold-mut);
-  border-radius: 2px;
-  color: var(--color-ivory);
-  background: transparent;
-  cursor: pointer;
-  transition:
-    background-color 0.4s var(--ease-lux),
-    color 0.4s var(--ease-lux);
-}
-.intro-splash__enter:hover {
-  background: var(--color-gold-mut);
-  color: var(--color-obsidian);
+.intro-splash__ghost {
+  color: var(--color-gold-mut);
+  opacity: 0.55;
 }
 .intro-splash__skip {
   position: absolute;
   bottom: 2rem;
+  z-index: 2;
   font-family: var(--font-body);
   font-size: 0.6rem;
   text-transform: uppercase;
@@ -863,6 +1095,13 @@ h4 {
   .reveal {
     opacity: 1;
     transform: none;
+  }
+  .story-photo img {
+    opacity: 1;
+    transform: none;
+  }
+  .story-photo__skeleton {
+    display: none;
   }
   .anim-rise,
   .anim-fade {

@@ -7,8 +7,11 @@ export default function Events() {
   const { events } = weddingData;
 
   return (
-    <section id="events" className="relative bg-night section border-t border-graphite">
-      <div className="wrap">
+    <section id="events" className="relative bg-night section border-t border-graphite overflow-hidden">
+      {/* soft transparent ash wash */}
+      <div className="absolute inset-0 ash-veil pointer-events-none" />
+
+      <div className="wrap relative">
         <SectionHeading
           eyebrow="Save the Date"
           title="The Celebration"

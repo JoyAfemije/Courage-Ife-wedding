@@ -7,9 +7,12 @@ export default function Intro() {
   return (
     <section
       id="intro"
-      className="relative bg-obsidian section"
+      className="relative bg-obsidian section overflow-hidden"
     >
-      <div className="wrap max-w-3xl text-center">
+      {/* soft transparent ash wash */}
+      <div className="absolute inset-0 ash-veil pointer-events-none" />
+
+      <div className="wrap relative max-w-3xl text-center">
         <Reveal>
           <p className="eyebrow mb-8">{intro.heading}</p>
         </Reveal>

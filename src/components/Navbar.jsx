@@ -52,9 +52,9 @@ export default function Navbar() {
             href="#home"
             onClick={() => setOpen(false)}
             className="font-display text-ivory text-xl sm:text-2xl tracking-[0.28em] leading-none"
-            aria-label="Courage and Ife — home"
+            aria-label="Ifeoluwa and Courage — home"
           >
-            C&nbsp;<span className="text-champagne font-light">&amp;</span>&nbsp;I
+            I&nbsp;<span className="text-gold font-light">&amp;</span>&nbsp;C
           </a>
 
           {/* Desktop links */}
@@ -103,7 +103,7 @@ export default function Navbar() {
       >
         <div className="wrap flex items-center justify-between py-6">
           <span className="font-display text-2xl tracking-[0.28em] text-ivory">
-            C&nbsp;<span className="text-champagne font-light">&amp;</span>&nbsp;I
+            I&nbsp;<span className="text-gold font-light">&amp;</span>&nbsp;C
           </span>
           <button
             type="button"

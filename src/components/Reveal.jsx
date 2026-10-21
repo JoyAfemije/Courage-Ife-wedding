@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
  * Reveal — lightweight scroll-triggered entrance built on IntersectionObserver.
  * Progressive: if the API is unavailable, content renders visible immediately.
  * Honors prefers-reduced-motion (CSS neutralizes the transform/opacity).
+ * `from` picks the entrance direction: "up" | "left" | "right" | "zoom".
  */
 export default function Reveal({
   as: Tag = "div",
@@ -11,6 +12,7 @@ export default function Reveal({
   className = "",
   delay = 0,
   once = true,
+  from = "up",
   ...rest
 }) {
   const ref = useRef(null);
@@ -44,7 +46,7 @@ export default function Reveal({
   return (
     <Tag
       ref={ref}
-      className={`reveal ${visible ? "is-in" : ""} ${className}`}
+      className={`reveal reveal--${from} ${visible ? "is-in" : ""} ${className}`}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
       {...rest}
     >

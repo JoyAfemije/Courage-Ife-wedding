@@ -10,14 +10,17 @@ export default function RSVP() {
   )}`;
 
   return (
-    <section id="rsvp" className="relative bg-obsidian section">
-      <div className="wrap max-w-2xl">
-        <Reveal className="relative border border-graphite px-6 py-16 sm:px-14 sm:py-20 text-center">
+    <section id="rsvp" className="relative bg-obsidian section overflow-hidden">
+      {/* soft transparent ash wash */}
+      <div className="absolute inset-0 ash-veil pointer-events-none" />
+
+      <div className="wrap relative max-w-2xl">
+        <Reveal className="anim-border relative border border-graphite rounded-xl px-6 py-16 sm:px-14 sm:py-20 text-center bg-charcoal/40 backdrop-blur-sm">
           {/* corner ticks */}
-          <span className="pointer-events-none absolute -top-px -left-px h-6 w-6 border-t border-l border-champagne" />
-          <span className="pointer-events-none absolute -top-px -right-px h-6 w-6 border-t border-r border-champagne" />
-          <span className="pointer-events-none absolute -bottom-px -left-px h-6 w-6 border-b border-l border-champagne" />
-          <span className="pointer-events-none absolute -bottom-px -right-px h-6 w-6 border-b border-r border-champagne" />
+          <span className="pointer-events-none absolute -top-px -left-px h-6 w-6 rounded-tl-xl border-t border-l border-champagne" />
+          <span className="pointer-events-none absolute -top-px -right-px h-6 w-6 rounded-tr-xl border-t border-r border-champagne" />
+          <span className="pointer-events-none absolute -bottom-px -left-px h-6 w-6 rounded-bl-xl border-b border-l border-champagne" />
+          <span className="pointer-events-none absolute -bottom-px -right-px h-6 w-6 rounded-br-xl border-b border-r border-champagne" />
 
           <p className="eyebrow mb-6">Kindly Respond</p>
           <h2 className="display-md text-ivory mb-6">{rsvp.heading}</h2>

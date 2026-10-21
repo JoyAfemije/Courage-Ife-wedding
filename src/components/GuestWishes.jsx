@@ -6,11 +6,14 @@ export default function GuestWishes() {
   const { guestWishes } = weddingData;
 
   return (
-    <section className="relative bg-night section border-y border-graphite">
-      <div className="wrap max-w-2xl text-center">
+    <section className="relative bg-night section border-y border-graphite overflow-hidden">
+      {/* soft transparent ash wash */}
+      <div className="absolute inset-0 ash-veil pointer-events-none" />
+
+      <div className="wrap relative max-w-2xl text-center">
         <Reveal>
           <span
-            className="font-display text-7xl leading-none text-champagne/60 block mb-4"
+            className="font-display text-7xl leading-none text-gold/50 block mb-4"
             aria-hidden="true"
           >
             &ldquo;

@@ -12,7 +12,7 @@ export default function WeddingMaterial() {
   return (
     <section className="relative bg-emerald section overflow-hidden">
       {/* faint tonal depth without gloom */}
-      <div className="absolute inset-0 bg-gradient-to-br from-forest/40 via-transparent to-obsidian/50 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-forest/60 via-transparent to-obsidian/60 pointer-events-none" />
 
       <div className="wrap relative">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-20 items-start">
@@ -37,23 +37,39 @@ export default function WeddingMaterial() {
           </Reveal>
 
           <Reveal delay={120}>
-            <dl className="divide-y divide-ivory/15 border-y border-ivory/15 font-body">
-              {[
-                ["Material", material.materialType],
-                ["Colour", material.colour],
-                ["Contact Person", `${material.contactPerson} · ${material.phoneNumber}`],
-              ].map(([label, value]) => (
-                <div
-                  key={label}
-                  className="flex flex-col gap-1 py-5 sm:flex-row sm:justify-between sm:gap-6"
-                >
-                  <dt className="text-[0.65rem] uppercase tracking-[0.28em] text-champagne-soft shrink-0">
-                    {label}
-                  </dt>
-                  <dd className="text-ivory/90 sm:text-right">{value}</dd>
-                </div>
-              ))}
-            </dl>
+            <div className="anim-border relative bg-forest/60 border border-ivory/15 rounded-lg p-6 sm:p-8 backdrop-blur-sm">
+              <dl className="divide-y divide-ivory/15 border-y border-ivory/15 font-body">
+                {material.items.map((item) => (
+                  <div
+                    key={item.name}
+                    className="flex items-center justify-between gap-6 py-5"
+                  >
+                    <dt className="font-display text-2xl text-ivory">
+                      {item.name}
+                    </dt>
+                    <dd className="text-gold tracking-wide">{item.price}</dd>
+                  </div>
+                ))}
+                {[
+                  ["Colour", material.colour],
+                  ["Payment Deadline", material.paymentDeadline],
+                  [
+                    "Contact Person",
+                    `${material.contactPerson} · ${material.phoneNumber}`,
+                  ],
+                ].map(([label, value]) => (
+                  <div
+                    key={label}
+                    className="flex flex-col gap-1 py-5 sm:flex-row sm:items-center sm:justify-between sm:gap-6"
+                  >
+                    <dt className="text-[0.65rem] uppercase tracking-[0.28em] text-champagne-soft shrink-0">
+                      {label}
+                    </dt>
+                    <dd className="text-ivory/90 sm:text-right">{value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
           </Reveal>
         </div>
       </div>
