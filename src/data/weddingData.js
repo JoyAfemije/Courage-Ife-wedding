@@ -8,7 +8,7 @@ import storyChapter1 from "../assets/gallery/IMG_4318.jpg";
 import storyChapter2 from "../assets/gallery/IMG_1172.jpg";
 import storyChapter3 from "../assets/gallery/IMG_5058.jpg";
 import storyChapter4 from "../assets/gallery/IMG_8620.jpg";
-import storyChapter5 from "../assets/gallery/IMG_9803.JPG";
+import storyChapter5 from "../assets/gallery/IMG_9803.jpg";
 
 const weddingData = {
   couple: {
