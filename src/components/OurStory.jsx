@@ -3,15 +3,13 @@ import weddingData from "../data/weddingData.js";
 import storyBg from "../assets/story-bg.jpg";
 import Reveal from "./Reveal.jsx";
 
-/** Story photograph — lazy-loaded, resolves from a shimmer then breathes into place. */
+/** Story photograph — circular memory bubble; lazy-loaded, resolves from a shimmer then breathes into place. */
 function StoryPhoto({ src, alt }) {
   const [loaded, setLoaded] = useState(false);
 
   return (
     <div
-      className={`story-photo anim-border aspect-[4/5] w-full sm:aspect-auto sm:h-full sm:min-h-[24rem] ${
-        loaded ? "is-loaded" : ""
-      }`}
+      className={`story-photo anim-border ${loaded ? "is-loaded" : ""}`}
     >
       <div className="story-photo__skeleton" aria-hidden="true" />
       <img
@@ -86,16 +84,16 @@ export default function OurStory() {
 
                   {/* Photograph — glides in from its own side */}
                   <div
-                    className={
+                    className={`flex items-center ${
                       imageOnLeft
                         ? "sm:col-start-1 sm:row-start-1"
                         : "sm:col-start-2 sm:row-start-1"
-                    }
+                    }`}
                   >
                     <Reveal
                       from={imageOnLeft ? "left" : "right"}
                       delay={120}
-                      className="h-full"
+                      className="w-full"
                     >
                       <StoryPhoto
                         src={milestone.image}
@@ -106,7 +104,7 @@ export default function OurStory() {
 
                   {/* Copy — glides in from the opposite side */}
                   <div
-                    className={`mt-7 flex flex-col justify-center sm:mt-0 sm:row-start-1 ${
+                    className={`mt-7 flex flex-col justify-center sm:mt-10 sm:row-start-1 ${
                       imageOnLeft
                         ? "sm:col-start-2 sm:row-start-1 sm:pl-0"
                         : "sm:col-start-1 sm:row-start-1 sm:text-right sm:pr-0"

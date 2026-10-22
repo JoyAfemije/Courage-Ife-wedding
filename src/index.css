@@ -400,12 +400,21 @@ h4 {
   contain-intrinsic-size: auto 480px;
 }
 
-/* Story photograph frame — the image resolves from a shimmer as it enters */
+/* Story photograph — circular "memory bubble" frame; the image resolves
+   from a shimmer as it enters. Full-circle border, no card. */
 .story-photo {
   position: relative;
   overflow: hidden;
-  border-radius: 6px;
+  aspect-ratio: 1 / 1;
+  width: min(100%, 21rem);
+  margin-inline: auto;
+  border-radius: 9999px;
   background: var(--color-charcoal);
+}
+@media (min-width: 640px) {
+  .story-photo {
+    width: min(100%, 24rem);
+  }
 }
 .story-photo img {
   position: relative;
@@ -437,7 +446,7 @@ h4 {
   pointer-events: none;
   border-radius: inherit;
   background: radial-gradient(
-    120% 100% at 50% 45%,
+    58% 58% at 50% 45%,
     transparent 55%,
     rgba(11, 11, 11, 0.38) 100%
   );
