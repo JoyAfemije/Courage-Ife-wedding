@@ -10,16 +10,16 @@ export default function WeddingMaterial() {
   )}`;
 
   return (
-    <section className="relative bg-emerald section overflow-hidden">
-      {/* faint tonal depth without gloom */}
-      <div className="absolute inset-0 bg-gradient-to-br from-forest/60 via-transparent to-obsidian/60 pointer-events-none" />
+    <section className="relative bg-ivory section overflow-hidden">
+      {/* faint warm depth on the off-white field */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white/60 via-transparent to-champagne/25 pointer-events-none" />
 
       <div className="wrap relative">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-20 items-start">
           <Reveal>
-            <p className="eyebrow mb-6 text-champagne-soft">Aso-Ebi</p>
-            <h2 className="display-lg text-ivory mb-6">{material.heading}</h2>
-            <p className="font-body text-ivory/75 leading-relaxed max-w-md">
+            <p className="eyebrow mb-6 text-emerald">Aso-Ebi</p>
+            <h2 className="display-lg text-obsidian mb-6">{material.heading}</h2>
+            <p className="font-body text-charcoal/70 leading-relaxed max-w-md">
               {material.body}
             </p>
 
@@ -28,7 +28,7 @@ export default function WeddingMaterial() {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-solid"
+                className="btn btn-emerald"
               >
                 {material.ctaLabel}
                 <ArrowRight size={15} />

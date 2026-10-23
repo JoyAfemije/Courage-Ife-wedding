@@ -206,7 +206,7 @@ events: [
   heading: "We'd Love to Celebrate With You",
   body:
     "Kindly let us know if you'll be joining us, either through our online form or WhatsApp.",
-  googleFormUrl: "https://forms.google.com/replace-with-ifeoluwa-and-courage-rsvp-form",
+  googleFormUrl: "https://forms.gle/tviCkn1cngcZfesZ8",
   ctaLabel: "RSVP Now",
   whatsappNumber: "2348187894148",
   whatsappMessage:

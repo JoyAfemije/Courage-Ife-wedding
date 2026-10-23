@@ -119,16 +119,14 @@ export default function IntroSplash() {
       aria-modal="true"
       aria-label={`${full}. ${splash.subtitle}`}
     >
-      {/* Opening video — a recessed oval medallion, slow motion, black & white,
-          framed by a gold/emerald ring that travels around it as the film plays */}
+      {/* Opening video — full-bleed, slow motion, black & white; a soft inner
+          vignette keeps the overlaid title legible as the film plays. */}
       {!reducedMotion && (
         <div
           className={`intro-splash__medallion ${titleActive ? "is-out" : ""}`}
           aria-hidden="true"
         >
           <div className="intro-splash__frame">
-            {/* painted first, sits behind the video — only its 3px edge shows */}
-            <span className="intro-splash__ring" />
             <video
               ref={videoRef}
               className="intro-splash__video"
