@@ -37,7 +37,7 @@ export default function WeddingMaterial() {
           </Reveal>
 
           <Reveal delay={120}>
-            <div className="anim-border relative bg-forest/60 border border-ivory/15 rounded-lg p-6 sm:p-8 backdrop-blur-sm">
+            <div className="anim-border relative bg-emerald border border-ivory/10 rounded-lg p-6 sm:p-8 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.6)]">
               <dl className="divide-y divide-ivory/15 border-y border-ivory/15 font-body">
                 {material.items.map((item) => (
                   <div

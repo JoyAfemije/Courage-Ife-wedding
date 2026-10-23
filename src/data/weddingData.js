@@ -9,6 +9,7 @@ import storyChapter2 from "../assets/gallery/IMG_1172.jpg";
 import storyChapter3 from "../assets/gallery/IMG_5058.jpg";
 import storyChapter4 from "../assets/gallery/IMG_8620.jpg";
 import storyChapter5 from "../assets/gallery/IMG_9803.jpg";
+import weddingMusic from "../assets/the-best-part.mp3";
 
 const weddingData = {
   couple: {
@@ -23,7 +24,7 @@ hashtag: "#MEETTHEAFEMIJES",
 // Full-screen pre-intro shown before the invitation itself.
 splash: {
   title: "Meet The Afemijes",
-  subtitle: "Courage & Ife · 29 Dec 2026",
+  subtitle: "Ifeoluwa & Courage · 29 Dec 2026",
 },
 
   weddingDate: "2026-12-29T09:00:00", 
@@ -58,7 +59,7 @@ splash: {
         description:
           'A mystery number added Courage to "Physiology Freshers." He was not a fresher. He was not in Physiology. Just before tapping "exit group," he slid into three DMs, and only one lady replied. Her name was Ife, and her replies were short, cold, and very much "who is this?" Days later, he wished her a happy belated birthday and refused to say how he knew. "Superpowers," he said. The short replies became long chats (a man knows game). He asked for a picture, got one, and nearly dropped his phone. "What in the world is this beauty?"',
         image: storyChapter1,
-        imageAlt: "Courage and Ife's early moment together",
+        imageAlt: "Ifeoluwa and Courage's early moment together",
       },
       {
         id: "first-night",
@@ -94,7 +95,7 @@ splash: {
         description:
           "On the 29th of December, the girl who said NO on that first night says YES to forever (yes, yes, clockeeeet \ud83d\ude0d\ud83d\ude02). We can't wait to celebrate with the people who've watched this love story unfold.",
         image: storyChapter5,
-        imageAlt: "Courage and Ife counting down to the wedding",
+        imageAlt: "Ifeoluwa and Courage counting down to the wedding",
       },
     ],
   },
@@ -152,7 +153,7 @@ events: [
     phoneNumber: "09036218330",
     whatsappNumber: "2349036218330",
     whatsappMessage:
-      "Hello! I'd like to get the wedding material (Cap / Gele) for Courage & Ife's wedding.",
+      "Hello! I'd like to get the wedding material (Cap / Gele) for Ifeoluwa & Courage's wedding.",
     ctaLabel: "Get Material",
   },
 
@@ -162,7 +163,7 @@ events: [
     images: [
       {
         src: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1200&auto=format&fit=crop",
-        alt: "Courage and Ife laughing together outdoors",
+        alt: "Ifeoluwa and Courage laughing together outdoors",
         span: "tall",
       },
       {
@@ -194,9 +195,9 @@ events: [
   },
 
   // Background soundtrack — a single, discreet, visitor-controlled toggle.
-  // The URL is a direct, browser-accessible MP3 (HTTP 200, accepts byte ranges).
+  // Bundled locally (src/assets) so it always ships with the site — no external host.
   music: {
-    src: "https://store.cvaultx.com/uploads/music/2026/05/Dwin-feat-The-Stoic-Again-(CeeNaija.com).mp3",
+    src: weddingMusic,
     label: "Play wedding soundtrack",
     pauseLabel: "Pause wedding soundtrack",
     defaultVolume: 0.25,
@@ -303,7 +304,7 @@ events: [
   ],
 
   footer: {
-    message: "With love, Courage & Ife.",
+    message: "With love, Ifeoluwa & Courage.",
   },
 };
 
