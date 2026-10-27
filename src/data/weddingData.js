@@ -50,9 +50,9 @@ splash: {
 
   // A single scripture band — the verse that frames our day.
   bibleVerse: {
-    reference: "Song of Solomon 3:4",
+    reference: "Matthew 19:6",
     text:
-      "It was but a little that I passed by them, when I found him whom my soul loveth: I held him, and would not let him go, until I had brought him into my mother's house, and into the chamber of her that conceived me.",
+      "Wherefore they are no more twain, but one flesh. What therefore God hath joined together, let not man put asunder.",
   },
 
   story: {
