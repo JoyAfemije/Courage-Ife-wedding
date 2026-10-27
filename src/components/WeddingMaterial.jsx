@@ -10,20 +10,20 @@ export default function WeddingMaterial() {
   )}`;
 
   return (
-    <section className="relative bg-ivory section overflow-hidden">
+    <section className="relative bg-paper section overflow-hidden">
       {/* faint warm depth on the off-white field */}
       <div className="absolute inset-0 bg-gradient-to-br from-white/60 via-transparent to-champagne/25 pointer-events-none" />
 
       <div className="wrap relative">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-20 items-start">
           <Reveal>
-            <p className="eyebrow mb-6 text-emerald">Aso-Ebi</p>
-            <h2 className="display-lg text-obsidian mb-6">{material.heading}</h2>
-            <p className="font-body text-charcoal/70 leading-relaxed max-w-md">
+            <p className="eyebrow mb-6 text-emerald!">Aso-Ebi</p>
+            <h2 className="display-lg text-ink mb-6">{material.heading}</h2>
+            <p className="font-body text-ink-soft leading-relaxed max-w-md">
               {material.body}
             </p>
 
-            <div className="mt-10 flex flex-wrap gap-4">
+            <div className="mt-10 flex flex-wrap justify-center gap-4 lg:justify-start">
               <a
                 href={whatsappUrl}
                 target="_blank"
@@ -37,7 +37,7 @@ export default function WeddingMaterial() {
           </Reveal>
 
           <Reveal delay={120}>
-            <div className="anim-border relative bg-emerald border border-ivory/10 rounded-lg p-6 sm:p-8 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.6)]">
+            <div className="anim-border pin-dark relative bg-emerald border border-ivory/10 rounded-lg p-6 sm:p-8 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.6)]">
               <dl className="divide-y divide-ivory/15 border-y border-ivory/15 font-body">
                 {material.items.map((item) => (
                   <div

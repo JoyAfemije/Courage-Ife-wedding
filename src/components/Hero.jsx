@@ -20,7 +20,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-obsidian"
+      className="pin-dark relative min-h-[100svh] flex items-center justify-center overflow-hidden bg-obsidian"
     >
       {/* Photograph — shimmer placeholder that resolves once the image loads */}
       <div className={`hero-media absolute inset-0 ${loaded ? "is-loaded" : ""}`}>
@@ -92,21 +92,6 @@ export default function Hero() {
           </a>
         </div>
       </div>
-
-      {/* Scroll cue */}
-      <a
-        href="#intro"
-        aria-label="Scroll to invitation"
-        className="anim-fade absolute bottom-8 left-1/2 z-10 -translate-x-1/2 flex flex-col items-center gap-3 text-silver"
-        style={{ animationDelay: "1.8s" }}
-      >
-        <span className="font-body text-[0.6rem] uppercase tracking-[0.3em]">
-          Scroll
-        </span>
-        <span className="relative block h-12 w-px overflow-hidden bg-graphite">
-          <span className="scroll-cue-dot absolute left-1/2 top-0 h-3 w-px -translate-x-1/2 bg-champagne" />
-        </span>
-      </a>
     </section>
   );
 }

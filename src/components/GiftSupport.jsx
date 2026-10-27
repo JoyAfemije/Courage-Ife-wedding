@@ -37,7 +37,7 @@ export default function GiftSupport() {
             {support.items.map((item) => (
               <div
                 key={item.name}
-                className="anim-border relative overflow-hidden rounded-xl border border-graphite bg-charcoal px-4 py-8 text-left"
+                className="anim-border relative overflow-hidden rounded-xl border border-graphite bg-charcoal px-4 py-8 text-center sm:text-left"
               >
                 <span className="block font-display text-2xl text-ivory">
                   {item.name}
@@ -54,7 +54,7 @@ export default function GiftSupport() {
         </Reveal>
 
         <Reveal delay={160}>
-          <div className="anim-border relative rounded-xl bg-charcoal border border-graphite p-8 sm:p-10 text-left">
+          <div className="anim-border relative rounded-xl bg-charcoal border border-graphite p-8 sm:p-10 text-center sm:text-left">
             <p className="eyebrow mb-8">Payment Details</p>
             <dl className="font-body text-sm divide-y divide-graphite">
               {[
@@ -64,7 +64,7 @@ export default function GiftSupport() {
               ].map(([label, value]) => (
                 <div
                   key={label}
-                  className="flex items-center justify-between gap-4 py-4"
+                  className="flex flex-col items-center gap-1 py-4 sm:flex-row sm:justify-between sm:gap-4"
                 >
                   <dt className="text-silver/70 uppercase tracking-[0.18em] text-[0.7rem]">
                     {label}

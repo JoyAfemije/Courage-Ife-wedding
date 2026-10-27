@@ -7,18 +7,18 @@ export default function Intro() {
   return (
     <section
       id="intro"
-      className="relative bg-ivory section overflow-hidden"
+      className="relative bg-paper section overflow-hidden"
     >
       {/* faint warm depth on the off-white field */}
       <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-transparent to-champagne/25 pointer-events-none" />
 
       <div className="wrap relative max-w-3xl text-center">
         <Reveal>
-          <p className="eyebrow mb-8 text-emerald">{intro.heading}</p>
+          <p className="eyebrow mb-8 text-emerald!">{intro.heading}</p>
         </Reveal>
 
         <Reveal delay={100}>
-          <p className="font-display text-obsidian leading-[1.35] text-[clamp(1.75rem,4vw,2.75rem)] font-light">
+          <p className="font-display text-ink leading-[1.35] text-[clamp(1.75rem,4vw,2.75rem)] font-light">
             {intro.body}
           </p>
         </Reveal>

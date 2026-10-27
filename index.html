@@ -4,15 +4,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#0B0B0B" />
-  <title>Courage &amp; Ife — 29th December 2026</title>
+  <title>Ifeoluwa &amp; Courage — 29th December 2026</title>
   <meta name="description"
-    content="Courage &amp; Ife invite you to celebrate their wedding on the 29th of December 2026 in Ibadan, Nigeria." />
+    content="Ifeoluwa &amp; Courage invite you to celebrate their wedding on the 29th of December 2026 in Ibadan, Nigeria." />
+
+  <style>
+    /* Paint the correct page background before the bundle loads to avoid a flash. */
+    html {
+      background: #0b0b0b;
+    }
+
+    html[data-theme="light"] {
+      background: #f5f2ea;
+    }
+  </style>
+
+  <script>
+    // Theme: follow the device's light/dark setting, but let a manual choice
+    // (stored in localStorage under "theme") override it. Runs synchronously in
+    // <head> so the first paint is already themed correctly (no flash).
+    (function () {
+      var KEY = "theme";
+      var m = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)");
+      function saved() {
+        try {
+          return localStorage.getItem(KEY);
+        } catch (e) {
+          return null;
+        }
+      }
+      function apply() {
+        var s = saved();
+        var dark = s ? s === "dark" : m ? m.matches : true;
+        document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+        var tc = document.querySelector('meta[name="theme-color"]');
+        if (tc) tc.setAttribute("content", dark ? "#0B0B0B" : "#f5f2ea");
+      }
+      apply();
+      // Auto-follow the device only while no manual override is stored.
+      if (m) {
+        var onChange = function () {
+          if (!saved()) apply();
+        };
+        if (m.addEventListener) m.addEventListener("change", onChange);
+        else if (m.addListener) m.addListener(onChange);
+      }
+    })();
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 </head>
 
-<body style="background-color: #0b0b0b">
+<body>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>

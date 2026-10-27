@@ -25,6 +25,23 @@ export default function AudioToggle() {
 
     audio.volume = music?.defaultVolume ?? 0.25;
 
+    // Skip the first few seconds of the track — the intro isn't wanted — and
+    // resume from that point on every loop.
+    const START_AT = 10;
+    const skipIntro = () => {
+      if (audio.currentTime < START_AT - 0.5) {
+        try {
+          audio.currentTime = START_AT;
+        } catch {
+          /* metadata not ready yet */
+        }
+      }
+    };
+    const onLoadedMetadata = () => skipIntro();
+    const onTimeUpdate = () => {
+      if (!audio.paused) skipIntro();
+    };
+
     const onPlay = () => setStatus("loading");
     const onPlaying = () => setStatus("playing");
     const onPause = () =>
@@ -39,6 +56,8 @@ export default function AudioToggle() {
     audio.addEventListener("waiting", onWaiting);
     audio.addEventListener("ended", onEnded);
     audio.addEventListener("error", onError);
+    audio.addEventListener("loadedmetadata", onLoadedMetadata);
+    audio.addEventListener("timeupdate", onTimeUpdate);
 
     // Autoplay intent: the soundtrack should start the moment the visitor opens
     // the site, then loop continuously until they leave.
@@ -79,6 +98,8 @@ export default function AudioToggle() {
       audio.removeEventListener("waiting", onWaiting);
       audio.removeEventListener("ended", onEnded);
       audio.removeEventListener("error", onError);
+      audio.removeEventListener("loadedmetadata", onLoadedMetadata);
+      audio.removeEventListener("timeupdate", onTimeUpdate);
       audio.pause();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

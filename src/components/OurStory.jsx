@@ -1,30 +1,38 @@
 import { useState } from "react";
 import weddingData from "../data/weddingData.js";
-import storyBg from "../assets/story-bg.jpg";
 import Reveal from "./Reveal.jsx";
 
-/** Story photograph — circular memory bubble; lazy-loaded, resolves from a shimmer then breathes into place. */
-function StoryPhoto({ src, alt }) {
+/** Quiet centred ornament — line · diamond · line. */
+function StoryOrnament({ className = "" }) {
+  return (
+    <span
+      className={`inline-flex items-center justify-center gap-4 ${className}`}
+      aria-hidden="true"
+    >
+      <span className="h-px w-12 bg-ink/20 sm:w-16" />
+      <span className="size-1.5 rotate-45 bg-gold" />
+      <span className="h-px w-12 bg-ink/20 sm:w-16" />
+    </span>
+  );
+}
+
+/** A finished story page, presented as a framed fine-art print —
+    white mat board, hairline border, deep soft shadow. Resolves from
+    a shimmer as it lazy-loads; lifts toward the visitor on hover. */
+function StoryCard({ src, alt, eager = false }) {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <div
-      className={`story-photo anim-border ${loaded ? "is-loaded" : ""}`}
-    >
-      <div className="story-photo__skeleton" aria-hidden="true" />
+    <figure className={`story-card ${loaded ? "is-loaded" : ""}`}>
+      <span className="story-card__skeleton" aria-hidden="true" />
       <img
         src={src}
         alt={alt}
-        loading="lazy"
+        loading={eager ? "eager" : "lazy"}
         decoding="async"
         onLoad={() => setLoaded(true)}
       />
-      {/* quiet editorial grade — keeps the photo in the site's palette */}
-      <div
-        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-obsidian/35 via-transparent to-transparent"
-        aria-hidden="true"
-      />
-    </div>
+    </figure>
   );
 }
 
@@ -32,109 +40,57 @@ export default function OurStory() {
   const { story } = weddingData;
 
   return (
-    <section id="story" className="relative overflow-hidden bg-obsidian">
-      {/* Background photograph */}
-      <img
-        src={storyBg}
-        alt=""
-        aria-hidden="true"
-        loading="lazy"
-        className="absolute inset-0 h-full w-full object-cover object-center contrast-[1.03]"
-      />
-      {/* Legibility scrims — heavy dark wash + edge fades so copy always reads */}
-      <div className="absolute inset-0 bg-obsidian/85" />
-      <div className="absolute inset-0 bg-gradient-to-b from-obsidian via-obsidian/55 to-obsidian" />
-
-      {/* Content */}
+    <section
+      id="story"
+      className="story-paper relative overflow-hidden border-y border-ink/5"
+    >
       <div className="relative z-10 wrap section">
+        {/* ── Section header ── */}
         <div className="mx-auto max-w-2xl text-center">
           <Reveal from="zoom">
             <p className="eyebrow mb-6">Our Journey</p>
-            <h2 className="display-lg text-ivory mb-8">{story.heading}</h2>
-            <p className="font-display italic text-2xl sm:text-[1.75rem] leading-snug text-champagne-soft">
+            <h2 className="display-lg">{story.heading}</h2>
+            <StoryOrnament className="my-8" />
+            <p className="font-display italic text-xl leading-snug text-ink-soft sm:text-[1.65rem]">
               “{story.intro}”
             </p>
           </Reveal>
         </div>
 
-        {/* Chapter timeline — image and text alternate sides as you scroll */}
-        <div className="relative mx-auto mt-20 max-w-5xl sm:mt-28">
-          {/* Centre spine (desktop) / left spine (mobile) */}
+        {/* ── The chapters — pages joined flush, one long story magazine ── */}
+        <div className="relative mx-auto mt-14 max-w-[36rem] sm:mt-16 sm:max-w-[38rem]">
+          {/* elegant side rails in the whitespace — large screens only */}
           <span
-            className="pointer-events-none absolute top-2 bottom-2 left-[7px] w-px bg-gradient-to-b from-transparent via-ivory/20 to-transparent sm:left-1/2 sm:-translate-x-1/2"
+            className="pointer-events-none absolute top-6 bottom-6 -left-14 hidden w-px bg-gradient-to-b from-transparent via-ink/15 to-transparent xl:block"
             aria-hidden="true"
-          />
+          >
+            <span className="absolute left-1/2 top-0 size-1.5 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-gold/60" />
+            <span className="absolute left-1/2 bottom-0 size-1.5 -translate-x-1/2 translate-y-1/2 rotate-45 bg-gold/60" />
+          </span>
+          <span
+            className="pointer-events-none absolute top-6 bottom-6 -right-14 hidden w-px bg-gradient-to-b from-transparent via-ink/15 to-transparent xl:block"
+            aria-hidden="true"
+          >
+            <span className="absolute left-1/2 top-0 size-1.5 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-gold/60" />
+            <span className="absolute left-1/2 bottom-0 size-1.5 -translate-x-1/2 translate-y-1/2 rotate-45 bg-gold/60" />
+          </span>
 
-          <ol className="space-y-16 sm:space-y-28">
-            {story.milestones.map((milestone, index) => {
-              const imageOnLeft = index % 2 === 0;
-
-              return (
-                <li
-                  key={milestone.id ?? milestone.title}
-                  className="story-chapter relative pl-10 sm:grid sm:grid-cols-2 sm:items-stretch sm:gap-x-16 sm:pl-0 sm:pr-0"
-                >
-                  {/* Node on the spine */}
-                  <span
-                    className="absolute left-0 top-2 h-[15px] w-[15px] rotate-45 border border-gold/70 bg-obsidian sm:left-1/2 sm:-ml-[7.5px]"
-                    aria-hidden="true"
-                  >
-                    <span className="absolute inset-[3px] bg-gold" />
-                  </span>
-
-                  {/* Photograph — glides in from its own side */}
-                  <div
-                    className={`flex items-center ${
-                      imageOnLeft
-                        ? "sm:col-start-1 sm:row-start-1"
-                        : "sm:col-start-2 sm:row-start-1"
-                    }`}
-                  >
-                    <Reveal
-                      from={imageOnLeft ? "left" : "right"}
-                      delay={120}
-                      className="w-full"
-                    >
-                      <StoryPhoto
-                        src={milestone.image}
-                        alt={milestone.imageAlt}
-                      />
-                    </Reveal>
-                  </div>
-
-                  {/* Copy — glides in from the opposite side */}
-                  <div
-                    className={`mt-7 flex flex-col justify-center sm:mt-10 sm:row-start-1 ${
-                      imageOnLeft
-                        ? "sm:col-start-2 sm:row-start-1 sm:pl-0"
-                        : "sm:col-start-1 sm:row-start-1 sm:text-right sm:pr-0"
-                    }`}
-                  >
-                    <Reveal
-                      from={imageOnLeft ? "right" : "left"}
-                      className="h-full flex flex-col justify-center"
-                    >
-                      <span className="text-grad font-display text-4xl leading-none sm:text-5xl">
-                        {milestone.year}
-                      </span>
-                      <h3 className="mt-3 font-display text-[1.75rem] text-ivory sm:text-4xl">
-                        {milestone.title}
-                      </h3>
-                      <span
-                        className={`my-5 hidden h-px w-16 bg-gradient-to-r from-gold/70 to-transparent sm:block ${
-                          imageOnLeft ? "" : "ml-auto bg-gradient-to-l"
-                        }`}
-                        aria-hidden="true"
-                      />
-                      <p className="font-body leading-relaxed text-silver sm:max-w-md sm:inline-block">
-                        {milestone.description}
-                      </p>
-                    </Reveal>
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
+          <div className="story-stack">
+            {story.cards.map((card, index) => (
+              <Reveal
+                key={card.alt}
+                from="up"
+                delay={index === 0 ? 120 : 0}
+                className="w-full"
+              >
+                <StoryCard
+                  src={card.src}
+                  alt={card.alt}
+                  eager={index === 0}
+                />
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
     </section>

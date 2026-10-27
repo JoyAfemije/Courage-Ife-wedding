@@ -15,15 +15,15 @@ export default function Events() {
         <SectionHeading
           eyebrow="Save the Date"
           title="The Celebration"
-          intro="Three moments, one unforgettable day. We would be honoured to have you with us for each of them."
+          intro="Two moments, one unforgettable day. We would be honoured to have you with us for each of them."
         />
 
-        <div className="mt-16 sm:mt-20 grid md:grid-cols-3 md:divide-x divide-graphite border-t border-graphite md:border-t-0">
+        <div className="mx-auto mt-16 grid max-w-4xl grid-cols-1 border-t border-graphite sm:mt-20 md:grid-cols-2 md:divide-x md:border-t-0 divide-graphite">
           {events.map((event, index) => (
             <Reveal
               key={event.id}
               delay={index * 100}
-              className="flex flex-col px-0 md:px-10 py-12 md:py-4 first:md:pl-0 last:md:pr-0"
+              className="flex flex-col items-center px-0 md:px-10 py-12 md:py-4 first:md:pl-0 last:md:pr-0 text-center"
             >
               <span className="font-display text-champagne text-lg mb-6">
                 0{index + 1}

@@ -404,7 +404,7 @@ export default function Gallery() {
           role="dialog"
           aria-modal="true"
           aria-label="Photo viewer"
-          className="lightbox-overlay fixed inset-0 z-[100] flex items-center justify-center bg-obsidian/95 px-4 sm:px-20"
+          className="lightbox-overlay pin-dark fixed inset-0 z-[100] flex items-center justify-center bg-obsidian/95 px-4 sm:px-20"
           onClick={() => setIsOpen(false)}
         >
           <span className="pointer-events-none absolute top-6 left-1/2 -translate-x-1/2 font-body text-[0.65rem] uppercase tracking-[0.3em] text-silver">

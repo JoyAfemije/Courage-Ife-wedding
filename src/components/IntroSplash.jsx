@@ -3,12 +3,12 @@ import weddingData from "../data/weddingData.js";
 import openingVideo from "../assets/openingvideo.mp4";
 
 /**
- * Full-screen opening. The couple's video plays in slow motion, graded black
- * & white; as it ends it gently zooms and fades, "Meet The Afemijes" pops out
- * letter by letter, then the splash dissolves into the invitation.
+ * Full-screen opening. The couple's video plays slightly slowed in its
+ * original colour; as it ends it gently zooms and fades, "Meet The Afemijes"
+ * pops out letter by letter, then the splash dissolves into the invitation.
  * Skippable by tap / Enter / Escape — the whole page is already mounted behind.
  */
-const SLOW_MO_RATE = 0.55; // playbackRate < 1 → slow motion
+const SLOW_MO_RATE = 0.9; // near real-time; a touch of cinematic drag
 
 export default function IntroSplash() {
   const { splash } = weddingData;
@@ -46,7 +46,7 @@ export default function IntroSplash() {
   // Safety net — if 'ended' never fires (decode hiccup), advance anyway.
   useEffect(() => {
     if (phase !== "video" || reducedMotion) return;
-    const fallback = setTimeout(() => setPhase("title"), 16000);
+    const fallback = setTimeout(() => setPhase("title"), 9000);
     return () => clearTimeout(fallback);
   }, [phase, reducedMotion]);
 
@@ -111,7 +111,7 @@ export default function IntroSplash() {
 
   return (
     <div
-      className={`intro-splash intro-splash--video ${
+      className={`intro-splash intro-splash--video pin-dark ${
         leaving ? "is-leaving" : ""
       } ${titleActive ? "is-to-title" : ""}`}
       onClick={dismiss}

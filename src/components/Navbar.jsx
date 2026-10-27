@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
+import ThemeToggle from "./ThemeToggle.jsx";
 
 const links = [
   { label: "Home", href: "#home" },
@@ -40,7 +41,7 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+        className={`pin-dark fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
           scrolled
             ? "bg-obsidian/90 backdrop-blur-md border-b border-graphite py-4"
             : "bg-transparent border-b border-transparent py-6"
@@ -72,28 +73,33 @@ export default function Navbar() {
             ))}
           </ul>
 
+          <ThemeToggle className="hidden md:flex mr-1" />
+
           <a href="#rsvp" className="hidden md:inline-flex btn btn-outline !py-2.5 !px-6 text-ivory">
             RSVP
           </a>
 
-          {/* Mobile toggle */}
-          <button
-            type="button"
-            ref={toggleRef}
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
-            className="md:hidden flex size-11 items-center justify-center -mr-2 text-ivory"
-          >
-            {open ? <X size={26} /> : <Menu size={26} />}
-          </button>
+          {/* Mobile controls: theme switch + menu toggle */}
+          <div className="flex items-center">
+            <ThemeToggle className="md:hidden" />
+            <button
+              type="button"
+              ref={toggleRef}
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+              onClick={() => setOpen((v) => !v)}
+              className="md:hidden flex size-11 items-center justify-center -mr-2 text-ivory"
+            >
+              {open ? <X size={26} /> : <Menu size={26} />}
+            </button>
+          </div>
         </nav>
       </header>
 
       {/* Mobile full-screen menu — rendered outside <header> so the
           header's backdrop-filter never becomes a containing block. */}
       <div
-        className={`md:hidden fixed inset-0 z-[60] bg-obsidian transition-opacity duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        className={`md:hidden fixed inset-0 z-[60] bg-obsidian pin-dark transition-opacity duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           open
             ? "opacity-100 pointer-events-auto"
             : "pointer-events-none opacity-0"

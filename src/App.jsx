@@ -10,7 +10,6 @@ import WeddingColours from "./components/WeddingColours.jsx";
 import WeddingMaterial from "./components/WeddingMaterial.jsx";
 import Gallery from "./components/Gallery.jsx";
 import RSVP from "./components/RSVP.jsx";
-import GuestWishes from "./components/GuestWishes.jsx";
 import GiftSupport from "./components/GiftSupport.jsx";
 import Contact from "./components/Contact.jsx";
 import FinalCTA from "./components/FinalCTA.jsx";
@@ -31,7 +30,6 @@ function App() {
         <WeddingMaterial />
         <Gallery />
         <RSVP />
-        <GuestWishes />
         <Contact />
         <FinalCTA />
       </main>

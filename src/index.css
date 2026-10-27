@@ -25,6 +25,12 @@
   --color-emerald-soft: #2f8f68; /* botanical accent — stems & leaves */
   --color-forest: #0a2c21; /* darkest emerald — gradients */
 
+  /* Constant "paper" surfaces — stay off-white in BOTH themes */
+  --color-paper: #f3f0e9;
+  --color-paper-soft: #ece6db;
+  --color-ink: #16130d; /* constant near-black text on paper */
+  --color-ink-soft: #4b463d; /* constant muted text on paper */
+
   /* Motion */
   --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
 
@@ -39,6 +45,47 @@
     #1f6b47 62%,
     #0f3527 100%
   );
+}
+
+/* ============================================================
+   THEME — automatic light / dark from the device setting.
+   The whole site is built on the neutral tokens above, so a light
+   theme is a re-map of those tokens; brand accents (emerald / gold /
+   forest) stay constant. Cinematic + chrome sections are pinned to the
+   dark palette via `.pin-dark` so photos & the navbar keep their legibility.
+   ============================================================ */
+:root {
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --color-obsidian: #f5f2ea; /* page foundation → warm off-white */
+  --color-night: #ece6db; /* soft sections → light */
+  --color-charcoal: #fbf9f3; /* raised surfaces → near-white cards */
+  --color-graphite: #ddd6c8; /* borders → light hairlines */
+  --color-ash: #6a655b; /* secondary text → medium warm grey */
+  --color-silver: #4b463e; /* light secondary → dark secondary */
+  --color-ivory: #17140f; /* primary text → near-black */
+  --color-champagne: #6a6459; /* labels → AA-legible warm grey on light */
+  --color-champagne-soft: #57524a;
+  --color-gold: #8a6d12; /* deeper amber so prices/links read on light cards */
+  --color-gold-mut: #6f5a2a;
+}
+
+/* Restore the dark palette inside a subtree regardless of the active theme. */
+:root[data-theme="light"] .pin-dark {
+  --color-obsidian: #0b0b0b;
+  --color-night: #121212;
+  --color-charcoal: #1c1c1c;
+  --color-graphite: #292929;
+  --color-ash: #777777;
+  --color-silver: #b8b8b8;
+  --color-ivory: #f3f0e9;
+  --color-champagne: #b4b0a8;
+  --color-champagne-soft: #d8d5cd;
+  --color-gold: #c9a227; /* bright gold on the dark/photo surfaces */
+  --color-gold-mut: #b49a68;
 }
 
 /* ============================================================
@@ -74,8 +121,8 @@ h4 {
 }
 
 ::selection {
-  background-color: var(--color-champagne);
-  color: var(--color-obsidian);
+  background-color: var(--color-champagne-soft);
+  color: var(--color-ink);
 }
 
 :focus-visible {
@@ -96,6 +143,18 @@ h4 {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-champagne);
+}
+
+/* ============================================================
+   MOBILE — on phones, centre the editorial flow (headings, body,
+   list text and inline CTAs) inside every section. Capped at the
+   Tailwind `sm` breakpoint (640px) so it never fights the
+   sm:/md: two-column layouts and alignment above phone widths.
+   ============================================================ */
+@media (max-width: 639.98px) {
+  .wrap {
+    text-align: center;
+  }
 }
 
 /* ============================================================
@@ -313,13 +372,13 @@ h4 {
 /* Solid emerald — high-contrast CTA on off-white sections */
 .btn-emerald {
   background: var(--color-emerald);
-  color: var(--color-ivory);
+  color: var(--color-paper);
   border: 1px solid var(--color-emerald);
 }
 .btn-emerald:hover {
   background: var(--color-forest);
   border-color: var(--color-forest);
-  color: var(--color-ivory);
+  color: var(--color-paper);
 }
 
 /* Unified hover — gold → emerald gradient reveal on every button */
@@ -329,7 +388,7 @@ h4 {
 .btn-emerald:hover {
   background-image: var(--grad-luxe);
   border-color: transparent;
-  color: var(--color-ivory);
+  color: var(--color-paper);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
@@ -404,75 +463,149 @@ h4 {
   transform: translateY(0) scale(1);
 }
 
-/* Skip compositing work for off-screen chapters — smooth long-scroll */
-.story-chapter {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 480px;
+/* ============================================================
+   STORY — editorial paper gallery of finished chapter designs.
+   Constant warm-paper surface (reads the same in both themes),
+   each Canva page presented as a framed fine-art print.
+   ============================================================ */
+.story-paper {
+  background-color: var(--color-paper);
+  background-image:
+    radial-gradient(70% 45% at 85% 3%, rgba(201, 162, 39, 0.07), transparent 60%),
+    radial-gradient(60% 40% at 8% 97%, rgba(16, 74, 56, 0.05), transparent 60%),
+    linear-gradient(
+      180deg,
+      #f6f3ec 0%,
+      var(--color-paper) 26%,
+      var(--color-paper) 74%,
+      var(--color-paper-soft) 100%
+    );
+  color: var(--color-ink);
+}
+/* the champagne eyebrow is tuned for dark surfaces — ink-soft reads on paper */
+.story-paper .eyebrow {
+  color: var(--color-ink-soft);
 }
 
-/* Story photograph — circular "memory bubble" frame; the image resolves
-   from a shimmer as it enters. Full-circle border, no card. */
-.story-photo {
+/* Joined magazine: pages stacked so each edge overlaps the one before it,
+   leaving no visible seam between chapters. */
+.story-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+.story-stack > * + * {
+  /* slight overlap so page edges sit on each other — no hairline seam */
+  margin-top: -1px;
   position: relative;
-  overflow: hidden;
-  aspect-ratio: 1 / 1;
-  width: min(100%, 21rem);
-  margin-inline: auto;
-  border-radius: 9999px;
-  background: var(--color-charcoal);
+  z-index: 1;
 }
-@media (min-width: 640px) {
-  .story-photo {
-    width: min(100%, 24rem);
-  }
+
+/* Chapter pages — joined flush into one long story magazine:
+   no mat board, no border, no shadow, no gaps.
+   Skip compositing work for off-screen pages — smooth long-scroll. */
+.story-card {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 840px;
+  position: relative;
+  width: 100%;
 }
-.story-photo img {
+.story-card img {
   position: relative;
   z-index: 1;
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
   opacity: 0;
-  transform: scale(1.04);
-  /* faded old-print grade — warm sepia wash, softened contrast */
-  filter: sepia(0.55) saturate(0.6) contrast(0.94) brightness(1.02) blur(1px);
+  transform: scale(1.015);
   transition:
     opacity 1s var(--ease-lux),
-    transform 1.6s var(--ease-lux),
-    filter 1.4s var(--ease-lux);
+    transform 1.6s var(--ease-lux);
 }
-.story-photo.is-loaded img {
+.story-card.is-loaded img {
   opacity: 1;
   transform: scale(1);
-  filter: sepia(0.38) saturate(0.68) contrast(0.96) brightness(1);
 }
-/* aged-paper vignette — gentle darkening toward the edges of the print */
-.story-photo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  border-radius: inherit;
-  background: radial-gradient(
-    58% 58% at 50% 45%,
-    transparent 55%,
-    rgba(11, 11, 11, 0.38) 100%
-  );
-}
-.story-photo__skeleton {
+.story-card__skeleton {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: linear-gradient(100deg, #141414 30%, #232323 50%, #141414 70%);
+  border-radius: inherit;
+  background: linear-gradient(100deg, #e9e3d7 30%, #f4efe5 50%, #e9e3d7 70%);
   background-size: 200% 100%;
-  animation: heroShimmer 1.5s var(--ease-lux) infinite;
+  animation: heroShimmer 1.6s var(--ease-lux) infinite;
   transition: opacity 0.8s var(--ease-lux);
 }
-.story-photo.is-loaded .story-photo__skeleton {
+.story-card.is-loaded .story-card__skeleton {
   opacity: 0;
   pointer-events: none;
+}
+
+/* ============================================================
+   WEDDING MATERIAL — draped fabric swatch, framed like a
+   couture sample card (gold hairline + travelling border).
+   ============================================================ */
+.material-swatch {
+  position: relative;
+  border-radius: 14px;
+}
+.material-swatch__frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: inherit;
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  aspect-ratio: 5 / 4;
+  background: var(--color-forest);
+  box-shadow:
+    0 34px 70px -34px rgba(10, 44, 33, 0.65),
+    0 10px 26px -18px rgba(0, 0, 0, 0.45);
+  transition: box-shadow 0.8s var(--ease-lux);
+}
+@media (min-width: 640px) {
+  .material-swatch__frame {
+    aspect-ratio: 3 / 2;
+  }
+}
+.material-swatch:hover .material-swatch__frame {
+  box-shadow:
+    0 44px 84px -36px rgba(10, 44, 33, 0.72),
+    0 12px 30px -18px rgba(0, 0, 0, 0.5);
+}
+.material-swatch__frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 1.6s var(--ease-lux);
+  will-change: transform;
+}
+.material-swatch:hover .material-swatch__frame img {
+  transform: scale(1.05);
+}
+/* quiet scrim — keeps the caption legible over the sheen of the silk */
+.material-swatch__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(7, 20, 14, 0.88) 0%,
+    rgba(7, 20, 14, 0.48) 36%,
+    rgba(7, 20, 14, 0.08) 62%,
+    transparent 100%
+  );
+}
+.material-swatch__caption {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1.15rem 1.35rem 1.3rem;
 }
 
 /* Hero entrance keyframes (run once on load) */
@@ -559,27 +692,6 @@ h4 {
 }
 .hero-copy.is-ready .anim-rise {
   animation: rise 1s var(--ease-lux) forwards;
-}
-
-/* Scroll cue */
-@keyframes scrollCue {
-  0% {
-    transform: translateY(0);
-    opacity: 0;
-  }
-  40% {
-    opacity: 1;
-  }
-  80% {
-    transform: translateY(14px);
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-.scroll-cue-dot {
-  animation: scrollCue 2.4s ease-in-out infinite;
 }
 
 /* Gallery reel — progress hairline refilling during each scene */
@@ -874,7 +986,7 @@ h4 {
   pointer-events: none;
 }
 
-/* The opening film — full-bleed screen, slow motion, black & white,
+/* The opening film — full-bleed screen in its original colour,
    gently settling wider as it plays. */
 .intro-splash__medallion {
   position: absolute;
@@ -908,7 +1020,7 @@ h4 {
   object-fit: cover;
   object-position: center;
   opacity: 0.95;
-  filter: grayscale(1) contrast(1.04) brightness(0.92);
+  filter: none;
   animation:
     videoFadeIn 1.2s var(--ease-lux) both,
     videoZoomOut 12s linear both;
@@ -1086,11 +1198,11 @@ h4 {
     opacity: 1;
     transform: none;
   }
-  .story-photo img {
+  .story-card img {
     opacity: 1;
     transform: none;
   }
-  .story-photo__skeleton {
+  .story-card__skeleton {
     display: none;
   }
   .anim-rise,

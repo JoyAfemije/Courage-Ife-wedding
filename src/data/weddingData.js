@@ -4,11 +4,13 @@
 // file only, so nothing else needs to change.
 // ============================================================
 
-import storyChapter1 from "../assets/gallery/IMG_4318.jpg";
-import storyChapter2 from "../assets/gallery/IMG_1172.jpg";
-import storyChapter3 from "../assets/gallery/IMG_5058.jpg";
-import storyChapter4 from "../assets/gallery/IMG_8620.jpg";
-import storyChapter5 from "../assets/gallery/IMG_9803.jpg";
+// Story chapters — finished Canva page designs (artwork + copy baked in).
+import storyCard1 from "../assets/1.png";
+import storyCard2 from "../assets/2.png";
+import storyCard3 from "../assets/3.png";
+import storyCard4 from "../assets/4.png";
+import storyCard5 from "../assets/5.png";
+import materialFabric from "../assets/emerald-gold-fabrics.jpg";
 import weddingMusic from "../assets/the-best-part.mp3";
 
 const weddingData = {
@@ -51,65 +53,31 @@ splash: {
     heading: "Our Story",
     intro:
       "Some love stories start with a plan. Ours started with a wrong number, a wrong group and a strange DM.",
-    milestones: [
+    cards: [
       {
-        id: "wrong-number",
-        year: "2018",
-        title: "Wrong Number, Right Girl",
-        description:
-          'A mystery number added Courage to "Physiology Freshers." He was not a fresher. He was not in Physiology. Just before tapping "exit group," he slid into three DMs, and only one lady replied. Her name was Ife, and her replies were short, cold, and very much "who is this?" Days later, he wished her a happy belated birthday and refused to say how he knew. "Superpowers," he said. The short replies became long chats (a man knows game). He asked for a picture, got one, and nearly dropped his phone. "What in the world is this beauty?"',
-        image: storyChapter1,
-        imageAlt: "Ifeoluwa and Courage's early moment together",
+        src: storyCard1,
+        alt: "Chapter one — 2018: Wrong Number, Right Girl",
       },
       {
-        id: "first-night",
-        year: "2018",
-        title: "The Boldest First Night",
-        description:
-          "They met that same evening, and within minutes Courage asked her to be his girlfriend (what's the worst she can say, right?). She said NO (Gbam!). She still teases him about it, and honestly, fair. But she also said he was cool, and that was all the opening he needed.",
-        image: storyChapter2,
-        imageAlt: "The couple on their first night out",
+        src: storyCard2,
+        alt: "Chapter two — 2018: The Boldest First Night",
       },
       {
-        id: "just-friends",
-        year: "2018 – 2020",
-        title: "\u201CHe's My Boyfriend\u201D",
-        description:
-          'They stayed "just friends." Ife took him on his first-ever date, and she paid. He\'s still blushing. Courage started dressing better, speaking better, and writing: letters, poems, then a song (men mount, men unmount, odogwu dey write love poem, chaiiii). Then one day someone asked Ife who this guy was, and she said, "He\'s my boyfriend." Courage was standing right there, finding out in real time (women shaaaaa…).',
-        image: storyChapter3,
-        imageAlt: "A date moment from their early years",
+        src: storyCard3,
+        alt: "Chapter three — 2020: He's My Boyfriend",
       },
       {
-        id: "the-proposal",
-        year: "2025",
-        title: "A Man Went on His Knees",
-        description:
-          "After years of laughing, growing, and getting each other through everything, asking her to marry him was the easiest decision Courage has ever made.",
-        image: storyChapter4,
-        imageAlt: "The proposal moment",
+        src: storyCard4,
+        alt: "Chapter four — 2025: A Man Went on His Knees",
       },
       {
-        id: "wedding-day",
-        year: "2026",
-        title: "#MeetTheAfemijes",
-        description:
-          "On the 29th of December, the girl who said NO on that first night says YES to forever (yes, yes, clockeeeet \ud83d\ude0d\ud83d\ude02). We can't wait to celebrate with the people who've watched this love story unfold.",
-        image: storyChapter5,
-        imageAlt: "Ifeoluwa and Courage counting down to the wedding",
+        src: storyCard5,
+        alt: "Chapter five — 2026: Meet The Afemijes",
       },
     ],
   },
 
 events: [
-  {
-    id: "traditional",
-    name: "Traditional Wedding",
-    date: "Tuesday, 29th December 2026",
-    time: "8:00 AM", // placeholder — update with the real time
-    venue: "Havana Royal",
-    address: "Beside First Bank, UI First Gate, Ibadan",
-    mapsUrl: "https://maps.google.com/?q=Havana+Royal+UI+First+Gate+Ibadan",
-  },
   {
     id: "wedding-ceremony",
     name: "Wedding Ceremony",
@@ -143,6 +111,9 @@ events: [
     heading: "Wedding Material",
     body:
       "To help us create a beautiful and coordinated celebration, guests who would like to participate can get the official wedding material — a Cap or a Gele — from our designated contact.",
+    image: materialFabric,
+    imageAlt:
+      "Emerald and gold draped satin fabric — the aso-ebi colours of the day",
     items: [
       { name: "Cap", price: "₦5,000" },
       { name: "Gele", price: "₦15,000" },
@@ -232,7 +203,7 @@ events: [
       { name: "Gele", price: "₦15,000" },
     ],
     paymentDeadline: "22nd November 2026",
-    bankName: "GTBank",
+    bankName: "Opay",
     accountName: "Courage Udulishe Afemije",
     accountNumber: "8139981589",
     copyLabel: "Copy Account Number",
