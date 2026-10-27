@@ -5,13 +5,13 @@ import SectionHeading from "./SectionHeading.jsx";
 import Reveal from "./Reveal.jsx";
 
 // Auto-load every photo dropped into src/assets/gallery/,
-// excluding the hero / story backgrounds that also live in /assets.
+// excluding only the hero couple portrait that also lives in /assets.
 const assetModules = import.meta.glob("../assets/gallery/*.{jpg,jpeg,png,webp}", {
   eager: true,
 });
 
 const assetImages = Object.keys(assetModules)
-  .filter((path) => !/\/(hero-couple|story-bg)\.[a-z]+$/i.test(path))
+  .filter((path) => !/\/hero-couple\.[a-z]+$/i.test(path))
   .sort()
   .map((path, index) => ({
     src: assetModules[path].default,

@@ -3,6 +3,7 @@ import AudioToggle from "./components/AudioToggle.jsx";
 import IntroSplash from "./components/IntroSplash.jsx";
 import Hero from "./components/Hero.jsx";
 import Intro from "./components/Intro.jsx";
+import BibleVerse from "./components/BibleVerse.jsx";
 import Countdown from "./components/Countdown.jsx";
 import OurStory from "./components/OurStory.jsx";
 import Events from "./components/Events.jsx";
@@ -22,6 +23,7 @@ function App() {
       <main>
         <Hero />
         <Intro />
+        <BibleVerse />
         <Countdown />
         <OurStory />
         <Events />

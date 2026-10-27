@@ -1,13 +1,25 @@
-import { ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, Copy, Check } from "lucide-react";
 import weddingData from "../data/weddingData.js";
 import Reveal from "./Reveal.jsx";
 
 export default function WeddingMaterial() {
   const { material } = weddingData;
+  const [copied, setCopied] = useState(false);
 
   const whatsappUrl = `https://wa.me/${material.whatsappNumber}?text=${encodeURIComponent(
     material.whatsappMessage
   )}`;
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(material.accountNumber);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2200);
+    } catch {
+      // Clipboard API unavailable — account number remains visible on screen.
+    }
+  };
 
   return (
     <section className="relative bg-paper section overflow-hidden">
@@ -44,19 +56,16 @@ export default function WeddingMaterial() {
                     key={item.name}
                     className="flex items-center justify-between gap-6 py-5"
                   >
-                    <dt className="font-display text-2xl text-ivory">
+                    <dt className="font-display text-xl text-ivory sm:text-2xl">
                       {item.name}
                     </dt>
                     <dd className="text-gold tracking-wide">{item.price}</dd>
                   </div>
                 ))}
                 {[
-                  ["Colour", material.colour],
+                  ["Bank", material.bankName],
+                  ["Account Name", material.accountName],
                   ["Payment Deadline", material.paymentDeadline],
-                  [
-                    "Contact Person",
-                    `${material.contactPerson} · ${material.phoneNumber}`,
-                  ],
                 ].map(([label, value]) => (
                   <div
                     key={label}
@@ -68,7 +77,28 @@ export default function WeddingMaterial() {
                     <dd className="text-ivory/90 sm:text-right">{value}</dd>
                   </div>
                 ))}
+                <div className="flex flex-col gap-1 py-5 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+                  <dt className="text-[0.65rem] uppercase tracking-[0.28em] text-champagne-soft shrink-0">
+                    Account Number
+                  </dt>
+                  <dd className="font-body text-ivory/90 tracking-[0.12em] sm:text-right">
+                    {material.accountNumber}
+                  </dd>
+                </div>
               </dl>
+
+              <button
+                type="button"
+                onClick={handleCopy}
+                className="btn btn-outline text-ivory! w-full sm:w-auto mt-6"
+              >
+                {copied ? <Check size={15} /> : <Copy size={15} />}
+                {copied ? "Account number copied!" : "Copy Account Number"}
+              </button>
+
+              <p className="mt-5 text-xs text-ivory/70">
+                {material.contactPerson} · {material.phoneNumber}
+              </p>
             </div>
           </Reveal>
         </div>

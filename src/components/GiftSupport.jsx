@@ -31,28 +31,6 @@ export default function GiftSupport() {
           </p>
         </Reveal>
 
-        {/* Material items — Cap & Gele with prices */}
-        <Reveal delay={100}>
-          <div className="grid grid-cols-2 gap-4 sm:gap-6 mb-6">
-            {support.items.map((item) => (
-              <div
-                key={item.name}
-                className="anim-border relative overflow-hidden rounded-xl border border-graphite bg-charcoal px-4 py-8 text-center sm:text-left"
-              >
-                <span className="block font-display text-2xl text-ivory">
-                  {item.name}
-                </span>
-                <span className="mt-2 block font-body text-sm tracking-[0.12em] text-gold">
-                  {item.price}
-                </span>
-              </div>
-            ))}
-          </div>
-          <p className="font-body text-[0.68rem] uppercase tracking-[0.24em] text-champagne-soft mb-10">
-            Payment Deadline · {support.paymentDeadline}
-          </p>
-        </Reveal>
-
         <Reveal delay={160}>
           <div className="anim-border relative rounded-xl bg-charcoal border border-graphite p-8 sm:p-10 text-center sm:text-left">
             <p className="eyebrow mb-8">Payment Details</p>

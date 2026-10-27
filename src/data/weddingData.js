@@ -10,7 +10,6 @@ import storyCard2 from "../assets/2.png";
 import storyCard3 from "../assets/3.png";
 import storyCard4 from "../assets/4.png";
 import storyCard5 from "../assets/5.png";
-import materialFabric from "../assets/emerald-gold-fabrics.jpg";
 import weddingMusic from "../assets/the-best-part.mp3";
 
 const weddingData = {
@@ -47,6 +46,13 @@ splash: {
     heading: "You Are Invited",
     body:
       "With grateful hearts and joyful spirits, we invite you to celebrate the beginning of our forever. Your presence would mean the world to us as we say 'I do' surrounded by the people we love most.",
+  },
+
+  // A single scripture band — the verse that frames our day.
+  bibleVerse: {
+    reference: "Song of Solomon 3:4",
+    text:
+      "It was but a little that I passed by them, when I found him whom my soul loveth: I held him, and would not let him go, until I had brought him into my mother's house, and into the chamber of her that conceived me.",
   },
 
   story: {
@@ -108,18 +114,18 @@ events: [
 },
 
   material: {
-    heading: "Wedding Material",
+    heading: "Get Material",
     body:
-      "To help us create a beautiful and coordinated celebration, guests who would like to participate can get the official wedding material — a Cap or a Gele — from our designated contact.",
-    image: materialFabric,
-    imageAlt:
-      "Emerald and gold draped satin fabric — the aso-ebi colours of the day",
+      "To help us create a beautiful and coordinated celebration, guests who would like to participate can get the official wedding material — an Aso Oke Cap or Gele — from our designated contact.",
     items: [
-      { name: "Cap", price: "₦5,000" },
-      { name: "Gele", price: "₦15,000" },
+      { name: "Aso Oke Gele", price: "₦15,000" },
+      { name: "Aso Oke Cap", price: "₦5,000" },
     ],
     colour: "Emerald & Gold",
     paymentDeadline: "22nd November 2026",
+    bankName: "Moniepoint",
+    accountName: "Adeyemi Ifeoluwa Elizabeth",
+    accountNumber: "9036218330",
     contactPerson: "The Afemije Family",
     phoneNumber: "09036218330",
     whatsappNumber: "2349036218330",
@@ -182,7 +188,7 @@ events: [
   ctaLabel: "RSVP Now",
   whatsappNumber: "2348187894148",
   whatsappMessage:
-    "Hello! I would like to RSVP for Ifeoluwa & Courage's wedding.\n\nName:\nNumber of Guests:\nWill you be attending? Yes/No",
+    "Hello! I would like to RSVP for Ifeoluwa & Courage's wedding.\n\nMy name is",
 },
 
   guestWishes: {
@@ -195,13 +201,9 @@ events: [
   },
 
   support: {
-    heading: "Celebrate With Us",
+    heading: "Gift Us With Your Resources",
     body:
       "Your presence is the greatest gift. However, if you would like to bless us further, we've made it easy for you to do so.",
-    items: [
-      { name: "Cap", price: "₦5,000" },
-      { name: "Gele", price: "₦15,000" },
-    ],
     paymentDeadline: "22nd November 2026",
     bankName: "Opay",
     accountName: "Courage Udulishe Afemije",
@@ -212,7 +214,7 @@ events: [
 
   contact: {
   heading: "Get in Touch",
-  contactPerson: "Our Event Planner",
+  contactPerson: "Our Event Planner · MAO Events",
   phoneNumber: "08108393317",
   whatsappNumber: "2348108393317",
   whatsappMessage:
@@ -250,7 +252,7 @@ events: [
       {
         question: "Is there parking available?",
         answer:
-          "Yes, secure parking will be available at all three venues, with ushers on hand to help direct you.",
+          "Yes, secure parking will be available at the venues, with ushers on hand to help direct you.",
       },
       {
         question: "Where can I find the venues?",
