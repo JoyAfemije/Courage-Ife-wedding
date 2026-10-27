@@ -15,9 +15,12 @@ export default function AudioToggle() {
   const [status, setStatus] = useState("idle"); // idle | loading | playing | paused | error
   const music = weddingData.music;
 
-  // Once a visitor deliberately pauses, the first-gesture autoplay must not
+  // Once a visitor deliberately pauses, the autoplay unlock must not
   // override them for the rest of the visit.
   const userPausedRef = useRef(false);
+  // True while the soundtrack is running muted (auto-started before any
+  // gesture). The first tap / keypress un-mutes it.
+  const mutedAutoplayRef = useRef(false);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -40,30 +43,57 @@ export default function AudioToggle() {
     audio.addEventListener("ended", onEnded);
     audio.addEventListener("error", onError);
 
-    // Autoplay intent: the soundtrack should start the moment the visitor opens
-    // the site, then loop continuously until they leave.
+    // Autoplay intent: the soundtrack must be running from the opening video
+    // on every load, with no click required first.
     //
-    // Browsers only permit audible autoplay once the visitor has shown
-    // engagement, so we attempt it immediately (works for returning visitors)
-    // and otherwise arm a one-shot start on the very first tap / keypress —
-    // dismissing the intro splash counts as that gesture. We never fake a
-    // playing state: the UI is driven purely by the audio element's events.
-    const attemptPlay = () => {
+    // Browsers refuse audible autoplay before any gesture, but they always
+    // allow MUTED playback — so we start muted instantly, and the very first
+    // tap / keypress (the splash "Enter" tap itself) un-mutes with a gentle
+    // volume ramp. If the visitor never touches anything, the music still
+    // plays silently. We never fake a playing state: the UI is driven purely
+    // by the audio element's events.
+    const targetVolume = music?.defaultVolume ?? 0.25;
+
+    const rampTo = (level) => {
+      audio.volume = 0;
+      const startedAt = performance.now();
+      const ramp = () => {
+        const t = Math.min((performance.now() - startedAt) / 600, 1);
+        audio.volume = level * t;
+        if (t < 1) requestAnimationFrame(ramp);
+      };
+      requestAnimationFrame(ramp);
+    };
+
+    const tryStart = (withSound) => {
       if (!music?.src || audio.error || userPausedRef.current) return;
       if (!audio.paused) return;
+      audio.muted = !withSound;
       const p = audio.play();
       if (p && typeof p.catch === "function") {
         p.catch(() => setStatus("paused"));
       }
     };
 
-    attemptPlay();
+    // Immediate muted auto-start — runs while the opening video is on screen.
+    tryStart(false);
+    mutedAutoplayRef.current = true;
 
     const unlock = (e) => {
       // Let the toggle button handle its own clicks (so a first tap on the
       // button isn't played-then-immediately-paused by two handlers).
       if (e.target instanceof Element && e.target.closest(".audio-toggle")) return;
-      attemptPlay();
+      if (!mutedAutoplayRef.current) return;
+      mutedAutoplayRef.current = false;
+      audio.muted = false;
+      if (audio.paused) {
+        // Muted playback failed outright (rare) — start audibly instead.
+        const p = audio.play();
+        if (p && typeof p.catch === "function") {
+          p.catch(() => setStatus("paused"));
+        }
+      }
+      rampTo(targetVolume);
     };
     window.addEventListener("pointerdown", unlock, { capture: true, passive: true });
     window.addEventListener("keydown", unlock, { capture: true });
@@ -91,9 +121,14 @@ export default function AudioToggle() {
     if (status === "playing" || status === "loading") {
       // An explicit pause is respected for the rest of the visit.
       userPausedRef.current = true;
+      mutedAutoplayRef.current = false;
       audio.pause();
     } else {
       userPausedRef.current = false;
+      // Playing deliberately always means audible.
+      mutedAutoplayRef.current = false;
+      audio.muted = false;
+      audio.volume = music?.defaultVolume ?? 0.25;
       setStatus("loading");
       const p = audio.play();
       if (p && typeof p.catch === "function") {
@@ -115,7 +150,7 @@ export default function AudioToggle() {
 
   return (
     <>
-      <audio ref={audioRef} src={music.src} loop preload="metadata" />
+      <audio ref={audioRef} src={music.src} loop muted preload="metadata" />
       <button
         type="button"
         className="audio-toggle"
