@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import weddingData from "../data/weddingData.js";
 import openingVideo from "../assets/openingvideo.mp4";
+import WeddingLogo from "./WeddingLogo.jsx";
 
 /**
  * Full-screen opening. The couple's video plays slightly slowed in its
@@ -149,7 +150,7 @@ export default function IntroSplash() {
           className={`intro-splash__mono ${titleActive ? "is-in" : ""}`}
           aria-hidden="true"
         >
-          I&nbsp;&amp;&nbsp;C
+          <WeddingLogo spin={!reducedMotion} />
         </span>
         <h1 className="intro-splash__title" aria-hidden="true">
           {titleActive ? (

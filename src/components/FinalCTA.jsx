@@ -1,5 +1,6 @@
 import weddingData from "../data/weddingData.js";
 import Reveal from "./Reveal.jsx";
+import WeddingLogo from "./WeddingLogo.jsx";
 
 export default function FinalCTA() {
   const { finalCta, couple, hero, material } = weddingData;
@@ -13,10 +14,10 @@ export default function FinalCTA() {
       <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-transparent to-champagne/25 pointer-events-none" />
       {/* restrained monogram watermark */}
       <span
-        className="pointer-events-none absolute inset-0 flex items-center justify-center font-display text-[12rem] leading-none text-ink/[0.05] select-none sm:text-[22rem]"
+        className="pointer-events-none absolute inset-0 flex items-center justify-center select-none"
         aria-hidden="true"
       >
-        I&amp;C
+        <WeddingLogo tint className="w-[14rem] opacity-[0.05] sm:w-[22rem]" />
       </span>
 
       <div className="wrap relative">

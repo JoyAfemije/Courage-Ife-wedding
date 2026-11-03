@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle.jsx";
+import WeddingLogo from "./WeddingLogo.jsx";
 
 const links = [
   { label: "Home", href: "#home" },
@@ -52,10 +53,10 @@ export default function Navbar() {
           <a
             href="#home"
             onClick={() => setOpen(false)}
-            className="font-display text-ivory text-xl sm:text-2xl tracking-[0.28em] leading-none"
+            className="block leading-none"
             aria-label="Ifeoluwa and Courage — home"
           >
-            I&nbsp;<span className="text-gold font-light">&amp;</span>&nbsp;C
+            <WeddingLogo className="h-[5.5rem] w-[5.5rem]" />
           </a>
 
           {/* Desktop links */}
@@ -108,9 +109,7 @@ export default function Navbar() {
         inert={!open}
       >
         <div className="wrap flex items-center justify-between py-6">
-          <span className="font-display text-2xl tracking-[0.28em] text-ivory">
-            I&nbsp;<span className="text-gold font-light">&amp;</span>&nbsp;C
-          </span>
+          <WeddingLogo className="h-[5.5rem] w-[5.5rem]" />
           <button
             type="button"
             aria-label="Close menu"

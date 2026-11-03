@@ -5,11 +5,11 @@
 // ============================================================
 
 // Story chapters — finished Canva page designs (artwork + copy baked in).
-import storyCard1 from "../assets/1.png";
-import storyCard2 from "../assets/2.png";
-import storyCard3 from "../assets/3.png";
-import storyCard4 from "../assets/4.png";
-import storyCard5 from "../assets/5.png";
+import storyCard1 from "../assets/1.jpg";
+import storyCard2 from "../assets/2.jpg";
+import storyCard3 from "../assets/3.jpg";
+import storyCard4 from "../assets/4.jpg";
+import storyCard5 from "../assets/5.jpg";
 import weddingMusic from "../assets/the-best-part.mp3";
 
 const weddingData = {

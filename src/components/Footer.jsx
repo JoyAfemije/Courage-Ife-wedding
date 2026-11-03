@@ -1,5 +1,6 @@
 import { ArrowUp } from "lucide-react";
 import weddingData from "../data/weddingData.js";
+import WeddingLogo from "./WeddingLogo.jsx";
 
 export default function Footer() {
   const { hero, footer } = weddingData;
@@ -9,10 +10,10 @@ export default function Footer() {
       <div className="wrap py-16 text-center">
         <a
           href="#home"
-          className="font-display text-3xl tracking-[0.28em] text-ivory"
+          className="inline-flex justify-center"
           aria-label="Back to top"
         >
-          I&nbsp;<span className="text-gold font-light italic">&amp;</span>&nbsp;C
+          <WeddingLogo className="wedding-logo--adaptive h-16 w-16" />
         </a>
 
         <p className="mt-5 font-body text-[0.7rem] uppercase tracking-[0.3em] text-ash">

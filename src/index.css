@@ -1080,10 +1080,10 @@ h4 {
   gap: 1.5rem;
 }
 .intro-splash__mono {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  letter-spacing: 0.42em;
-  color: var(--color-gold-mut);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   opacity: 0;
   transform: translateY(8px);
   transition:
@@ -1093,6 +1093,24 @@ h4 {
 .intro-splash__mono.is-in {
   opacity: 1;
   transform: translateY(0);
+}
+/* static gold halo behind the mark — kept off the spinning element so the
+   3D rotateY stays on the GPU compositor (no per-frame blur repaint = no lag) */
+.intro-splash__mono::before {
+  content: "";
+  position: absolute;
+  inset: -14%;
+  z-index: -1;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(201, 162, 39, 0.22),
+    transparent 62%
+  );
+  pointer-events: none;
+}
+.intro-splash__mono .wedding-logo {
+  width: clamp(9rem, 28vw, 15rem);
+  height: clamp(9rem, 28vw, 15rem);
 }
 .intro-splash__title {
   font-family: var(--font-display);
@@ -1155,6 +1173,45 @@ h4 {
   text-transform: uppercase;
   letter-spacing: 0.28em;
   color: var(--color-ash);
+}
+
+/* ============================================================
+   WEDDING LOGO — the couple's white monogram mark.
+   Slow 3D "coin-spin" on the Y axis, mirroring the reference
+   video (wedding_logo.mp4): face → edge → face, looping gently.
+   ============================================================ */
+.wedding-logo {
+  display: inline-block;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  transform: perspective(1000px) rotateY(0deg);
+}
+.wedding-logo--spin {
+  animation: logoCoinSpin 10s linear infinite;
+  will-change: transform;
+}
+/* recolour the white mark dark so it reads on light (paper) surfaces */
+.wedding-logo--tint {
+  filter: brightness(0);
+}
+/* follows the active theme: white on the dark palette, dark on the light one */
+:root[data-theme="light"] .wedding-logo--adaptive {
+  filter: brightness(0);
+}
+@keyframes logoCoinSpin {
+  from {
+    transform: perspective(1000px) rotateY(0deg);
+  }
+  to {
+    transform: perspective(1000px) rotateY(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wedding-logo--spin {
+    animation: none;
+    transform: perspective(1000px) rotateY(0deg);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
