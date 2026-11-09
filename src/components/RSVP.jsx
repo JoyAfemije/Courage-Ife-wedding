@@ -1,13 +1,9 @@
-import { ArrowUpRight, MessageCircle } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import weddingData from "../data/weddingData.js";
 import Reveal from "./Reveal.jsx";
 
 export default function RSVP() {
   const { rsvp } = weddingData;
-
-  const whatsappUrl = `https://wa.me/${rsvp.whatsappNumber}?text=${encodeURIComponent(
-    rsvp.whatsappMessage
-  )}`;
 
   return (
     <section id="rsvp" className="relative bg-obsidian section overflow-hidden">
@@ -28,7 +24,7 @@ export default function RSVP() {
             {rsvp.body}
           </p>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex justify-center">
             <a
               href={rsvp.googleFormUrl}
               target="_blank"
@@ -37,15 +33,6 @@ export default function RSVP() {
             >
               {rsvp.ctaLabel}
               <ArrowUpRight size={15} />
-            </a>
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-outline text-ivory"
-            >
-              <MessageCircle size={15} />
-              RSVP via WhatsApp
             </a>
           </div>
         </Reveal>
