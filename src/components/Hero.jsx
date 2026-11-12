@@ -6,6 +6,21 @@ export default function Hero() {
   const { hero, couple } = weddingData;
   const [firstName, secondName] = [couple.brideName, couple.groomName];
 
+  const renderWaveText = (text) =>
+    Array.from(text).map((char, index) => {
+      const isSpace = char === " ";
+
+      return (
+        <span
+          key={`${text}-${index}`}
+          className={`wave-letter ${isSpace ? "inline-block" : ""}`}
+          style={{ animationDelay: `${index * 120}ms` }}
+        >
+          {isSpace ? "\u00A0" : char}
+        </span>
+      );
+    });
+
   const imgRef = useRef(null);
   const [loaded, setLoaded] = useState(false);
 
@@ -55,10 +70,10 @@ export default function Hero() {
           className="display-xl anim-rise water-wave-title"
           style={{ animationDelay: "0.55s" }}
         >
-          {firstName}
+          {renderWaveText(firstName)}
           <span className="mx-3 sm:mx-5 font-light italic text-gold">&amp;</span>
           <br className="sm:hidden" />
-          {secondName}
+          {renderWaveText(secondName)}
         </h1>
 
         <div
