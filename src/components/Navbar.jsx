@@ -74,6 +74,13 @@ export default function Navbar() {
 
           <ThemeToggle className="hidden md:flex mr-1" />
 
+          <a
+            href="#gifts"
+            className="hidden md:inline-flex btn btn-outline !py-2.5 !px-6 text-ivory"
+          >
+            Gift Us
+          </a>
+
           {/* Mobile controls: theme switch + menu toggle */}
           <div className="flex items-center">
             <ThemeToggle className="md:hidden" />
@@ -132,6 +139,13 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
+          <a
+            href="#gifts"
+            onClick={closeMenu}
+            className="btn btn-solid mt-10 w-full"
+          >
+            Gift Us
+          </a>
         </nav>
       </div>
     </>
