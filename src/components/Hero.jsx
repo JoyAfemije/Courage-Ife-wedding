@@ -84,9 +84,6 @@ export default function Hero() {
           className="anim-rise mt-12 flex flex-col sm:flex-row items-center justify-center gap-4"
           style={{ animationDelay: "1.35s" }}
         >
-          <a href="#rsvp" className="btn btn-solid w-full sm:w-auto">
-            {hero.ctaPrimary}
-          </a>
           <a href="#story" className="btn btn-outline w-full sm:w-auto text-ivory">
             {hero.ctaSecondary}
           </a>
