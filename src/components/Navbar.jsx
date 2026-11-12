@@ -8,14 +8,12 @@ const links = [
   { label: "Our Story", href: "#story" },
   { label: "Events", href: "#events" },
   { label: "Gallery", href: "#gallery" },
-  { label: "RSVP", href: "#rsvp" },
   { label: "Gifts", href: "#gifts" },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [showScrollHint, setShowScrollHint] = useState(false);
   const toggleRef = useRef(null);
 
   // Move focus onto the header toggle BEFORE the off-screen panel is hidden.
@@ -24,12 +22,6 @@ export default function Navbar() {
   const closeMenu = () => {
     toggleRef.current?.focus({ preventScroll: true });
     setOpen(false);
-  };
-
-  const handleRsvpClick = (event) => {
-    event.preventDefault();
-    setShowScrollHint(true);
-    if (open) closeMenu();
   };
 
   useEffect(() => {
@@ -46,18 +38,12 @@ export default function Navbar() {
     };
   }, [open]);
 
-  useEffect(() => {
-    if (!showScrollHint) return;
-    const timer = window.setTimeout(() => setShowScrollHint(false), 1800);
-    return () => window.clearTimeout(timer);
-  }, [showScrollHint]);
-
   return (
     <>
       <header
         className={`pin-dark fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled
-            ? "bg-obsidian/90 backdrop-blur-md border-b border-graphite py-4"
-            : "bg-transparent border-b border-transparent py-6"
+          ? "bg-obsidian/90 backdrop-blur-md border-b border-graphite py-4"
+          : "bg-transparent border-b border-transparent py-6"
           }`}
       >
         <nav className="wrap flex items-center justify-between">
@@ -77,11 +63,6 @@ export default function Navbar() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  onClick={(event) => {
-                    if (link.label === "RSVP") {
-                      handleRsvpClick(event);
-                    }
-                  }}
                   className="group relative text-[0.7rem] uppercase tracking-[0.24em] text-silver transition-colors duration-300 hover:text-ivory"
                 >
                   {link.label}
@@ -92,14 +73,6 @@ export default function Navbar() {
           </ul>
 
           <ThemeToggle className="hidden md:flex mr-1" />
-
-          <button
-            type="button"
-            onClick={handleRsvpClick}
-            className="hidden md:inline-flex btn btn-outline !py-2.5 !px-6 text-ivory"
-          >
-            RSVP
-          </button>
 
           {/* Mobile controls: theme switch + menu toggle */}
           <div className="flex items-center">
@@ -122,8 +95,8 @@ export default function Navbar() {
           header's backdrop-filter never becomes a containing block. */}
       <div
         className={`md:hidden fixed inset-0 z-[60] bg-obsidian pin-dark transition-opacity duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${open
-            ? "opacity-100 pointer-events-auto"
-            : "pointer-events-none opacity-0"
+          ? "opacity-100 pointer-events-auto"
+          : "pointer-events-none opacity-0"
           }`}
         aria-hidden={!open}
         inert={!open}
@@ -146,13 +119,7 @@ export default function Navbar() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  onClick={(event) => {
-                    if (link.label === "RSVP") {
-                      handleRsvpClick(event);
-                      return;
-                    }
-                    closeMenu();
-                  }}
+                  onClick={closeMenu}
                   className={`flex items-baseline gap-4 border-b border-graphite py-5 font-display text-3xl text-ivory transition-opacity duration-500 ${open ? "opacity-100" : "opacity-0"
                     }`}
                   style={{ transitionDelay: open ? `${120 + i * 55}ms` : "0ms" }}
@@ -165,23 +132,8 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
-          <button
-            type="button"
-            onClick={handleRsvpClick}
-            className="btn btn-solid mt-10 w-full"
-          >
-            RSVP Now
-          </button>
         </nav>
       </div>
-
-      {showScrollHint && (
-        <div className="fixed bottom-6 left-1/2 z-[70] -translate-x-1/2">
-          <div className="rounded-full border border-gold/60 bg-obsidian/90 px-4 py-2 text-[0.6rem] uppercase tracking-[0.26em] text-ivory shadow-2xl backdrop-blur-sm">
-            Scroll down
-          </div>
-        </div>
-      )}
     </>
   );
 }

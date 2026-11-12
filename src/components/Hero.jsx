@@ -66,10 +66,7 @@ export default function Hero() {
           {hero.eyebrow}
         </p>
 
-        <h1
-          className="display-xl anim-rise water-wave-title"
-          style={{ animationDelay: "0.55s" }}
-        >
+        <h1 className="display-xl anim-rise" style={{ animationDelay: "0.55s" }}>
           {renderWaveText(firstName)}
           <span className="mx-3 sm:mx-5 font-light italic text-gold">&amp;</span>
           <br className="sm:hidden" />
